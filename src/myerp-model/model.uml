@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:PapyrusJava="http://www.eclipse.org/papyrus/PapyrusJava/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <uml:Model xmi:id="_gCsPkIQ8Eei3i7vqIfSlsA" name="model">
+    <packageImport xmi:type="uml:PackageImport" xmi:id="_gYvYEIQ8Eei3i7vqIfSlsA">
+      <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+    </packageImport>
+    <packagedElement xmi:type="uml:Package" xmi:id="_m3pVMIQ8Eei3i7vqIfSlsA" name="myerp-model">
+      <packagedElement xmi:type="uml:Package" xmi:id="_m8R9kIQ8Eei3i7vqIfSlsA" name="com">
+        <packagedElement xmi:type="uml:Package" xmi:id="_m8TywIQ8Eei3i7vqIfSlsA" name="dummy">
+          <packagedElement xmi:type="uml:Package" xmi:id="_m8VA4IQ8Eei3i7vqIfSlsA" name="myerp">
+            <packagedElement xmi:type="uml:Package" xmi:id="_m8WPAIQ8Eei3i7vqIfSlsA" name="model">
+              <packagedElement xmi:type="uml:Package" xmi:id="_m8YEMIQ8Eei3i7vqIfSlsA" name="bean">
+                <packagedElement xmi:type="uml:Package" xmi:id="_m8Z5YIQ8Eei3i7vqIfSlsA" name="comptabilite">
+                  <packagedElement xmi:type="uml:Class" xmi:id="_m8ex4IQ8Eei3i7vqIfSlsA" name="CompteComptable" visibility="public">
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_m82lUIQ8Eei3i7vqIfSlsA" name="numero" visibility="private" isUnique="false">
+                      <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_ILxaUPaLEeW5KOK8aDMdgA"/>
+                    </ownedAttribute>
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_nBB6sIQ8Eei3i7vqIfSlsA" name="libelle" visibility="private" type="_m8_vQIQ8Eei3i7vqIfSlsA" isUnique="false"/>
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_VgHE0IRAEei3i7vqIfSlsA" name="compteParent" visibility="private" type="_m8ex4IQ8Eei3i7vqIfSlsA"/>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nBf0wIQ8Eei3i7vqIfSlsA" name="CompteComptable" specification="_nBE-AIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nBvsYIQ8Eei3i7vqIfSlsA" name="CompteComptable" specification="_nBkGMIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    numero = pNumero;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nB-88IQ8Eei3i7vqIfSlsA" name="CompteComptable" specification="_nByvsIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    numero = pNumero;&#xD;
+    libelle = pLibelle;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nCFDkIQ8Eei3i7vqIfSlsA" name="getNumero" specification="_nCBZMIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    return numero;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nCLKMIQ8Eei3i7vqIfSlsA" name="setNumero" specification="_nCIG4IQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    numero = pNumero;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nCRQ0IQ8Eei3i7vqIfSlsA" name="getLibelle" specification="_nCNmcIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    return libelle;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nCX-gIQ8Eei3i7vqIfSlsA" name="setLibelle" specification="_nCViQIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    libelle = pLibelle;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nCesMIQ8Eei3i7vqIfSlsA" name="toString" specification="_nCaawIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    final StringBuilder vStB = new StringBuilder(this.getClass().getSimpleName());&#xD;
+    final String vSEP = &quot;, &quot;;&#xD;
+    vStB.append(&quot;{&quot;).append(&quot;numero=&quot;).append(numero).append(vSEP).append(&quot;libelle='&quot;).append(libelle).append('\'').append(&quot;}&quot;);&#xD;
+    return vStB.toString();&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nC14kIQ8Eei3i7vqIfSlsA" name="getByNumero" specification="_nCq5cIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    CompteComptable vRetour = null;&#xD;
+    for (CompteComptable vBean : pList) {&#xD;
+        if (vBean != null &amp;&amp; Objects.equals(vBean.getNumero(), pNumero)) {&#xD;
+            vRetour = vBean;&#xD;
+            break;&#xD;
+        }&#xD;
+    }&#xD;
+    return vRetour;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nBE-AIQ8Eei3i7vqIfSlsA" name="CompteComptable" visibility="public" method="_nBf0wIQ8Eei3i7vqIfSlsA"/>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nBkGMIQ8Eei3i7vqIfSlsA" name="CompteComptable" visibility="public" method="_nBvsYIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nBt3MIQ8Eei3i7vqIfSlsA" name="pNumero">
+                        <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_ILxaUPaLEeW5KOK8aDMdgA"/>
+                      </ownedParameter>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nByvsIQ8Eei3i7vqIfSlsA" name="CompteComptable" visibility="public" method="_nB-88IQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nB5dYIQ8Eei3i7vqIfSlsA" name="pNumero">
+                        <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_ILxaUPaLEeW5KOK8aDMdgA"/>
+                      </ownedParameter>
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nB9HwIQ8Eei3i7vqIfSlsA" name="pLibelle" type="_m8_vQIQ8Eei3i7vqIfSlsA"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nCBZMIQ8Eei3i7vqIfSlsA" name="getNumero" visibility="public" method="_nCFDkIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nCD1cIQ8Eei3i7vqIfSlsA" direction="return">
+                        <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_ILxaUPaLEeW5KOK8aDMdgA"/>
+                      </ownedParameter>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nCIG4IQ8Eei3i7vqIfSlsA" name="setNumero" visibility="public" method="_nCLKMIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nCJVAIQ8Eei3i7vqIfSlsA" name="pNumero">
+                        <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_ILxaUPaLEeW5KOK8aDMdgA"/>
+                      </ownedParameter>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nCNmcIQ8Eei3i7vqIfSlsA" name="getLibelle" visibility="public" method="_nCRQ0IQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nCPboIQ8Eei3i7vqIfSlsA" type="_m8_vQIQ8Eei3i7vqIfSlsA" direction="return"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nCViQIQ8Eei3i7vqIfSlsA" name="setLibelle" visibility="public" method="_nCX-gIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nCWwYIQ8Eei3i7vqIfSlsA" name="pLibelle" type="_m8_vQIQ8Eei3i7vqIfSlsA"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nCaawIQ8Eei3i7vqIfSlsA" name="toString" visibility="public" method="_nCesMIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nCcP8IQ8Eei3i7vqIfSlsA" type="_m8_vQIQ8Eei3i7vqIfSlsA" direction="return"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nCq5cIQ8Eei3i7vqIfSlsA" name="getByNumero" visibility="public" isStatic="true" method="_nC14kIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nCsuoIQ8Eei3i7vqIfSlsA" type="_m8ex4IQ8Eei3i7vqIfSlsA" direction="return"/>
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nCvK4IQ8Eei3i7vqIfSlsA" name="pList" type="_nCiWkIQ8Eei3i7vqIfSlsA">
+                        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nCxnIIQ8Eei3i7vqIfSlsA"/>
+                        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nCzcUIQ8Eei3i7vqIfSlsA" value="*"/>
+                      </ownedParameter>
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nC0qcIQ8Eei3i7vqIfSlsA" name="pNumero">
+                        <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_ILxaUPaLEeW5KOK8aDMdgA"/>
+                      </ownedParameter>
+                    </ownedOperation>
+                  </packagedElement>
+                  <packagedElement xmi:type="uml:Class" xmi:id="_nvzsQIQ8Eei3i7vqIfSlsA" name="EcritureComptable" visibility="public">
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_nv3WoIQ8Eei3i7vqIfSlsA" name="id" visibility="private" isUnique="false">
+                      <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_ILxaUPaLEeW5KOK8aDMdgA"/>
+                    </ownedAttribute>
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_nv_ScIQ8Eei3i7vqIfSlsA" name="journal" visibility="private" type="_yJh5IIQ8Eei3i7vqIfSlsA" isUnique="false"/>
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_nwBHoIQ8Eei3i7vqIfSlsA" name="reference" visibility="private" type="_m8_vQIQ8Eei3i7vqIfSlsA" isUnique="false"/>
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_nwJqgIQ8Eei3i7vqIfSlsA" name="date" visibility="private" type="_nwC80IQ8Eei3i7vqIfSlsA" isUnique="false"/>
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_nwN78IQ8Eei3i7vqIfSlsA" name="libelle" visibility="private" type="_m8_vQIQ8Eei3i7vqIfSlsA" isUnique="false"/>
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_nwUpoIQ8Eei3i7vqIfSlsA" name="listLigneEcriture" visibility="private" isLeaf="true" type="_nwPKEIQ8Eei3i7vqIfSlsA" isUnique="false">
+                      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nwXF4IQ8Eei3i7vqIfSlsA"/>
+                      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nwYUAIQ8Eei3i7vqIfSlsA" value="*"/>
+                      <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_nwY7EIQ8Eei3i7vqIfSlsA" name="defaultValue">
+                        <language>JAVA</language>
+                        <body>new ArrayList&lt;>()</body>
+                      </defaultValue>
+                    </ownedAttribute>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nweaoIQ8Eei3i7vqIfSlsA" name="getId" specification="_nwb-YIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    return id;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nwisEIQ8Eei3i7vqIfSlsA" name="setId" specification="_nwgP0IQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    id = pId;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nwoysIQ8Eei3i7vqIfSlsA" name="getJournal" specification="_nwmWcIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    return journal;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nwtEIIQ8Eei3i7vqIfSlsA" name="setJournal" specification="_nwqn4IQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    journal = pJournal;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nwyjsIQ8Eei3i7vqIfSlsA" name="getReference" specification="_nwwHcIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    return reference;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nxDCYIQ8Eei3i7vqIfSlsA" name="setReference" specification="_nw21IIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    reference = pReference;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nxHT0IQ8Eei3i7vqIfSlsA" name="getDate" specification="_nxE3kIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    return date;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nxMzYIQ8Eei3i7vqIfSlsA" name="setDate" specification="_nxKXIIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    date = pDate;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nxS6AIQ8Eei3i7vqIfSlsA" name="getLibelle" specification="_nxQdwIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    return libelle;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nxZnsIQ8Eei3i7vqIfSlsA" name="setLibelle" specification="_nxV9UIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    libelle = pLibelle;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nxegMIQ8Eei3i7vqIfSlsA" name="getListLigneEcriture" specification="_nxbc4IQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    return listLigneEcriture;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nxqGYIQ8Eei3i7vqIfSlsA" name="getTotalDebit" specification="_nxg8cIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    BigDecimal vRetour = BigDecimal.ZERO;&#xD;
+    for (LigneEcritureComptable vLigneEcritureComptable : listLigneEcriture) {&#xD;
+        if (vLigneEcritureComptable.getDebit() != null) {&#xD;
+            vRetour = vRetour.add(vLigneEcritureComptable.getDebit());&#xD;
+        }&#xD;
+    }&#xD;
+    return vRetour;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nxwNAIQ8Eei3i7vqIfSlsA" name="getTotalCredit" specification="_nxtJsIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    BigDecimal vRetour = BigDecimal.ZERO;&#xD;
+    for (LigneEcritureComptable vLigneEcritureComptable : listLigneEcriture) {&#xD;
+        if (vLigneEcritureComptable.getDebit() != null) {&#xD;
+            vRetour = vRetour.add(vLigneEcritureComptable.getDebit());&#xD;
+        }&#xD;
+    }&#xD;
+    return vRetour;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nx0ecIQ8Eei3i7vqIfSlsA" name="isEquilibree" specification="_nxyCMIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    boolean vRetour = this.getTotalDebit().equals(getTotalCredit());&#xD;
+    return vRetour;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_nx4v4IQ8Eei3i7vqIfSlsA" name="toString" specification="_nx26sIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    final StringBuilder vStB = new StringBuilder(this.getClass().getSimpleName());&#xD;
+    final String vSEP = &quot;, &quot;;&#xD;
+    vStB.append(&quot;{&quot;).append(&quot;id=&quot;).append(id).append(vSEP).append(&quot;journal=&quot;).append(journal).append(vSEP).append(&quot;reference='&quot;).append(reference).append('\'').append(vSEP).append(&quot;date=&quot;).append(date).append(vSEP).append(&quot;libelle='&quot;).append(libelle).append('\'').append(vSEP).append(&quot;totalDebit=&quot;).append(this.getTotalDebit().toPlainString()).append(vSEP).append(&quot;totalCredit=&quot;).append(this.getTotalCredit().toPlainString()).append(vSEP).append(&quot;listLigneEcriture=[\n&quot;).append(StringUtils.join(listLigneEcriture, &quot;\n&quot;)).append(&quot;\n]&quot;).append(&quot;}&quot;);&#xD;
+    return vStB.toString();&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nwb-YIQ8Eei3i7vqIfSlsA" name="getId" visibility="public" method="_nweaoIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nwdMgIQ8Eei3i7vqIfSlsA" direction="return">
+                        <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_ILxaUPaLEeW5KOK8aDMdgA"/>
+                      </ownedParameter>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nwgP0IQ8Eei3i7vqIfSlsA" name="setId" visibility="public" method="_nwisEIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nwhd8IQ8Eei3i7vqIfSlsA" name="pId">
+                        <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_ILxaUPaLEeW5KOK8aDMdgA"/>
+                      </ownedParameter>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nwmWcIQ8Eei3i7vqIfSlsA" name="getJournal" visibility="public" method="_nwoysIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nwnkkIQ8Eei3i7vqIfSlsA" direction="return"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nwqn4IQ8Eei3i7vqIfSlsA" name="setJournal" visibility="public" method="_nwtEIIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nwsdEIQ8Eei3i7vqIfSlsA" name="pJournal"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nwwHcIQ8Eei3i7vqIfSlsA" name="getReference" visibility="public" method="_nwyjsIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nwxVkIQ8Eei3i7vqIfSlsA" type="_m8_vQIQ8Eei3i7vqIfSlsA" direction="return"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nw21IIQ8Eei3i7vqIfSlsA" name="setReference" visibility="public" method="_nxDCYIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nw4DQIQ8Eei3i7vqIfSlsA" name="pReference" type="_m8_vQIQ8Eei3i7vqIfSlsA"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nxE3kIQ8Eei3i7vqIfSlsA" name="getDate" visibility="public" method="_nxHT0IQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nxGswIQ8Eei3i7vqIfSlsA" type="_nwC80IQ8Eei3i7vqIfSlsA" direction="return"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nxKXIIQ8Eei3i7vqIfSlsA" name="setDate" visibility="public" method="_nxMzYIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nxMMUIQ8Eei3i7vqIfSlsA" name="pDate" type="_nwC80IQ8Eei3i7vqIfSlsA"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nxQdwIQ8Eei3i7vqIfSlsA" name="getLibelle" visibility="public" method="_nxS6AIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nxSS8IQ8Eei3i7vqIfSlsA" type="_m8_vQIQ8Eei3i7vqIfSlsA" direction="return"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nxV9UIQ8Eei3i7vqIfSlsA" name="setLibelle" visibility="public" method="_nxZnsIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nxXygIQ8Eei3i7vqIfSlsA" name="pLibelle" type="_m8_vQIQ8Eei3i7vqIfSlsA"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nxbc4IQ8Eei3i7vqIfSlsA" name="getListLigneEcriture" visibility="public" method="_nxegMIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nxcD8IQ8Eei3i7vqIfSlsA" type="_nwPKEIQ8Eei3i7vqIfSlsA" direction="return">
+                        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nxcrAIQ8Eei3i7vqIfSlsA"/>
+                        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nxdSEIQ8Eei3i7vqIfSlsA" value="*"/>
+                      </ownedParameter>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nxg8cIQ8Eei3i7vqIfSlsA" name="getTotalDebit" visibility="public" method="_nxqGYIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nxoRMIQ8Eei3i7vqIfSlsA" type="_nxj_wIQ8Eei3i7vqIfSlsA" direction="return"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nxtJsIQ8Eei3i7vqIfSlsA" name="getTotalCredit" visibility="public" method="_nxwNAIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nxu-4IQ8Eei3i7vqIfSlsA" type="_nxj_wIQ8Eei3i7vqIfSlsA" direction="return"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nxyCMIQ8Eei3i7vqIfSlsA" name="isEquilibree" visibility="public" method="_nx0ecIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nxzQUIQ8Eei3i7vqIfSlsA" direction="return">
+                        <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+                      </ownedParameter>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_nx26sIQ8Eei3i7vqIfSlsA" name="toString" visibility="public" method="_nx4v4IQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_nx4I0IQ8Eei3i7vqIfSlsA" type="_m8_vQIQ8Eei3i7vqIfSlsA" direction="return"/>
+                    </ownedOperation>
+                  </packagedElement>
+                  <packagedElement xmi:type="uml:Class" xmi:id="_nwPKEIQ8Eei3i7vqIfSlsA" name="LigneEcritureComptable" visibility="public">
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_w8GcsIQ8Eei3i7vqIfSlsA" name="compteComptable" visibility="private" type="_m8ex4IQ8Eei3i7vqIfSlsA" isUnique="false"/>
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_w8HDwIQ8Eei3i7vqIfSlsA" name="libelle" visibility="private" type="_m8_vQIQ8Eei3i7vqIfSlsA" isUnique="false"/>
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_w8IR4IQ8Eei3i7vqIfSlsA" name="debit" visibility="private" type="_nxj_wIQ8Eei3i7vqIfSlsA" isUnique="false"/>
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_w8I48IQ8Eei3i7vqIfSlsA" name="credit" visibility="private" type="_nxj_wIQ8Eei3i7vqIfSlsA" isUnique="false"/>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_w8NxcIQ8Eei3i7vqIfSlsA" name="LigneEcritureComptable" specification="_w8I48YQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_w8alwIQ8Eei3i7vqIfSlsA" name="LigneEcritureComptable" specification="_w8PmoIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    compteComptable = pCompteComptable;&#xD;
+    libelle = pLibelle;&#xD;
+    debit = pDebit;&#xD;
+    credit = pCredit;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_w8feQIQ8Eei3i7vqIfSlsA" name="getCompteComptable" specification="_w8bz4IQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    return compteComptable;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_w8jIoIQ8Eei3i7vqIfSlsA" name="setCompteComptable" specification="_w8hTcIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    compteComptable = pCompteComptable;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_w8qdYIQ8Eei3i7vqIfSlsA" name="getLibelle" specification="_w8k90IQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    return libelle;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_w8tgsIQ8Eei3i7vqIfSlsA" name="setLibelle" specification="_w8rrgIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    libelle = pLibelle;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_w8vV4IQ8Eei3i7vqIfSlsA" name="getDebit" specification="_w8uHwIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    return debit;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_w8znUIQ8Eei3i7vqIfSlsA" name="setDebit" specification="_w8xLEIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    debit = pDebit;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_w82DkIQ8Eei3i7vqIfSlsA" name="getCredit" specification="_w801cIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    return credit;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_w85t8IQ8Eei3i7vqIfSlsA" name="setCredit" specification="_w83RsIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    credit = pCredit;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_w89YUIQ8Eei3i7vqIfSlsA" name="toString" specification="_w868EIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    final StringBuilder vStB = new StringBuilder(this.getClass().getSimpleName());&#xD;
+    final String vSEP = &quot;, &quot;;&#xD;
+    vStB.append(&quot;{&quot;).append(&quot;compteComptable=&quot;).append(compteComptable).append(vSEP).append(&quot;libelle='&quot;).append(libelle).append('\'').append(vSEP).append(&quot;debit=&quot;).append(debit).append(vSEP).append(&quot;credit=&quot;).append(credit).append(&quot;}&quot;);&#xD;
+    return vStB.toString();&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_w8I48YQ8Eei3i7vqIfSlsA" name="LigneEcritureComptable" visibility="public" method="_w8NxcIQ8Eei3i7vqIfSlsA"/>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_w8PmoIQ8Eei3i7vqIfSlsA" name="LigneEcritureComptable" visibility="public" method="_w8alwIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_w8VGMIQ8Eei3i7vqIfSlsA" name="pCompteComptable" type="_m8ex4IQ8Eei3i7vqIfSlsA"/>
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_w8XicIQ8Eei3i7vqIfSlsA" name="pLibelle" type="_m8_vQIQ8Eei3i7vqIfSlsA"/>
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_w8YwkIQ8Eei3i7vqIfSlsA" name="pDebit" type="_nxj_wIQ8Eei3i7vqIfSlsA"/>
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_w8Z-sIQ8Eei3i7vqIfSlsA" name="pCredit" type="_nxj_wIQ8Eei3i7vqIfSlsA"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_w8bz4IQ8Eei3i7vqIfSlsA" name="getCompteComptable" visibility="public" method="_w8feQIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_w8dpEIQ8Eei3i7vqIfSlsA" type="_m8ex4IQ8Eei3i7vqIfSlsA" direction="return"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_w8hTcIQ8Eei3i7vqIfSlsA" name="setCompteComptable" visibility="public" method="_w8jIoIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_w8ihkIQ8Eei3i7vqIfSlsA" name="pCompteComptable" type="_m8ex4IQ8Eei3i7vqIfSlsA"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_w8k90IQ8Eei3i7vqIfSlsA" name="getLibelle" visibility="public" method="_w8qdYIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_w8pPQIQ8Eei3i7vqIfSlsA" type="_m8_vQIQ8Eei3i7vqIfSlsA" direction="return"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_w8rrgIQ8Eei3i7vqIfSlsA" name="setLibelle" visibility="public" method="_w8tgsIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_w8s5oIQ8Eei3i7vqIfSlsA" name="pLibelle" type="_m8_vQIQ8Eei3i7vqIfSlsA"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_w8uHwIQ8Eei3i7vqIfSlsA" name="getDebit" visibility="public" method="_w8vV4IQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_w8uu0IQ8Eei3i7vqIfSlsA" type="_nxj_wIQ8Eei3i7vqIfSlsA" direction="return"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_w8xLEIQ8Eei3i7vqIfSlsA" name="setDebit" visibility="public" method="_w8znUIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_w8zAQIQ8Eei3i7vqIfSlsA" name="pDebit" type="_nxj_wIQ8Eei3i7vqIfSlsA"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_w801cIQ8Eei3i7vqIfSlsA" name="getCredit" visibility="public" method="_w82DkIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_w81cgIQ8Eei3i7vqIfSlsA" type="_nxj_wIQ8Eei3i7vqIfSlsA" direction="return"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_w83RsIQ8Eei3i7vqIfSlsA" name="setCredit" visibility="public" method="_w85t8IQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_w84f0IQ8Eei3i7vqIfSlsA" name="pCredit" type="_nxj_wIQ8Eei3i7vqIfSlsA"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_w868EIQ8Eei3i7vqIfSlsA" name="toString" visibility="public" method="_w89YUIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_w88KMIQ8Eei3i7vqIfSlsA" type="_m8_vQIQ8Eei3i7vqIfSlsA" direction="return"/>
+                    </ownedOperation>
+                  </packagedElement>
+                  <packagedElement xmi:type="uml:Class" xmi:id="_sY9osIQ8Eei3i7vqIfSlsA" name="SequenceEcritureComptable" visibility="public">
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_sZAsAIQ8Eei3i7vqIfSlsA" name="annee" visibility="private" isUnique="false">
+                      <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_ILxaUPaLEeW5KOK8aDMdgA"/>
+                    </ownedAttribute>
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_sZB6IIQ8Eei3i7vqIfSlsA" name="derniereValeur" visibility="private" isUnique="false">
+                      <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_ILxaUPaLEeW5KOK8aDMdgA"/>
+                    </ownedAttribute>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_sZMSMIQ8Eei3i7vqIfSlsA" name="SequenceEcritureComptable" specification="_sZChMIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_sZZtkIQ8Eei3i7vqIfSlsA" name="SequenceEcritureComptable" specification="_sZOucIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    annee = pAnnee;&#xD;
+    derniereValeur = pDerniereValeur;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_sZhCUIQ8Eei3i7vqIfSlsA" name="getAnnee" specification="_sZcJ0IQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    return annee;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_sZl60IQ8Eei3i7vqIfSlsA" name="setAnnee" specification="_sZi3gIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    annee = pAnnee;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_sZsogIQ8Eei3i7vqIfSlsA" name="getDerniereValeur" specification="_sZplMIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    return derniereValeur;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_sZ0kUIQ8Eei3i7vqIfSlsA" name="setDerniereValeur" specification="_sZwS4IQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    derniereValeur = pDerniereValeur;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_sZ41wIQ8Eei3i7vqIfSlsA" name="toString" specification="_sZ3AkIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    final StringBuilder vStB = new StringBuilder(this.getClass().getSimpleName());&#xD;
+    final String vSEP = &quot;, &quot;;&#xD;
+    vStB.append(&quot;{&quot;).append(&quot;annee=&quot;).append(annee).append(vSEP).append(&quot;derniereValeur=&quot;).append(derniereValeur).append(&quot;}&quot;);&#xD;
+    return vStB.toString();&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_sZChMIQ8Eei3i7vqIfSlsA" name="SequenceEcritureComptable" visibility="public" method="_sZMSMIQ8Eei3i7vqIfSlsA"/>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_sZOucIQ8Eei3i7vqIfSlsA" name="SequenceEcritureComptable" visibility="public" method="_sZZtkIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_sZVcIIQ8Eei3i7vqIfSlsA" name="pAnnee">
+                        <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_ILxaUPaLEeW5KOK8aDMdgA"/>
+                      </ownedParameter>
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_sZX4YIQ8Eei3i7vqIfSlsA" name="pDerniereValeur">
+                        <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_ILxaUPaLEeW5KOK8aDMdgA"/>
+                      </ownedParameter>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_sZcJ0IQ8Eei3i7vqIfSlsA" name="getAnnee" visibility="public" method="_sZhCUIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_sZfNIIQ8Eei3i7vqIfSlsA" direction="return">
+                        <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_ILxaUPaLEeW5KOK8aDMdgA"/>
+                      </ownedParameter>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_sZi3gIQ8Eei3i7vqIfSlsA" name="setAnnee" visibility="public" method="_sZl60IQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_sZkFoIQ8Eei3i7vqIfSlsA" name="pAnnee">
+                        <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_ILxaUPaLEeW5KOK8aDMdgA"/>
+                      </ownedParameter>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_sZplMIQ8Eei3i7vqIfSlsA" name="getDerniereValeur" visibility="public" method="_sZsogIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_sZqzUIQ8Eei3i7vqIfSlsA" direction="return">
+                        <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_ILxaUPaLEeW5KOK8aDMdgA"/>
+                      </ownedParameter>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_sZwS4IQ8Eei3i7vqIfSlsA" name="setDerniereValeur" visibility="public" method="_sZ0kUIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_sZzWMIQ8Eei3i7vqIfSlsA" name="pDerniereValeur">
+                        <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_ILxaUPaLEeW5KOK8aDMdgA"/>
+                      </ownedParameter>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_sZ3AkIQ8Eei3i7vqIfSlsA" name="toString" visibility="public" method="_sZ41wIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_sZ3noIQ8Eei3i7vqIfSlsA" type="_m8_vQIQ8Eei3i7vqIfSlsA" direction="return"/>
+                    </ownedOperation>
+                  </packagedElement>
+                  <packagedElement xmi:type="uml:Class" xmi:id="_yJh5IIQ8Eei3i7vqIfSlsA" name="JournalComptable" visibility="public">
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_yJigMIQ8Eei3i7vqIfSlsA" name="code" visibility="private" type="_m8_vQIQ8Eei3i7vqIfSlsA" isUnique="false"/>
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_yJjHQIQ8Eei3i7vqIfSlsA" name="libelle" visibility="private" type="_m8_vQIQ8Eei3i7vqIfSlsA" isUnique="false"/>
+                    <ownedAttribute xmi:type="uml:Property" xmi:id="_3M2sQIRAEei3i7vqIfSlsA" name="listSequenceEcritureComptable" visibility="private" type="_sY9osIQ8Eei3i7vqIfSlsA">
+                      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-Vyd0IRAEei3i7vqIfSlsA"/>
+                      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-V8O0IRAEei3i7vqIfSlsA" value="*"/>
+                    </ownedAttribute>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_yJljgIQ8Eei3i7vqIfSlsA" name="JournalComptable" specification="_yJjHQYQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_yJtfUIQ8Eei3i7vqIfSlsA" name="JournalComptable" specification="_yJnYsIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    code = pCode;&#xD;
+    libelle = pLibelle;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_yJv7kIQ8Eei3i7vqIfSlsA" name="getCode" specification="_yJutcIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    return code;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_yJ0NAIQ8Eei3i7vqIfSlsA" name="setCode" specification="_yJxJsIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    code = pCode;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_yJ2pQIQ8Eei3i7vqIfSlsA" name="getLibelle" specification="_yJ1bIIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    return libelle;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_yJ5skIQ8Eei3i7vqIfSlsA" name="setLibelle" specification="_yJ33YIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    libelle = pLibelle;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_yJ8I0IQ8Eei3i7vqIfSlsA" name="toString" specification="_yJ6ToIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    final StringBuilder vStB = new StringBuilder(this.getClass().getSimpleName());&#xD;
+    final String vSEP = &quot;, &quot;;&#xD;
+    vStB.append(&quot;{&quot;).append(&quot;code='&quot;).append(code).append('\'').append(vSEP).append(&quot;libelle='&quot;).append(libelle).append('\'').append(&quot;}&quot;);&#xD;
+    return vStB.toString();&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_yKDdkIQ8Eei3i7vqIfSlsA" name="getByCode" specification="_yJ_MIIQ8Eei3i7vqIfSlsA">
+                      <language>JAVA</language>
+                      <body>&#xD;
+    JournalComptable vRetour = null;&#xD;
+    for (JournalComptable vBean : pList) {&#xD;
+        if (vBean != null &amp;&amp; Objects.equals(vBean.getCode(), pCode)) {&#xD;
+            vRetour = vBean;&#xD;
+            break;&#xD;
+        }&#xD;
+    }&#xD;
+    return vRetour;&#xD;
+</body>
+                    </ownedBehavior>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_yJjHQYQ8Eei3i7vqIfSlsA" name="JournalComptable" visibility="public" method="_yJljgIQ8Eei3i7vqIfSlsA"/>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_yJnYsIQ8Eei3i7vqIfSlsA" name="JournalComptable" visibility="public" method="_yJtfUIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_yJsRMIQ8Eei3i7vqIfSlsA" name="pCode" type="_m8_vQIQ8Eei3i7vqIfSlsA"/>
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_yJs4QIQ8Eei3i7vqIfSlsA" name="pLibelle" type="_m8_vQIQ8Eei3i7vqIfSlsA"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_yJutcIQ8Eei3i7vqIfSlsA" name="getCode" visibility="public" method="_yJv7kIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_yJvUgIQ8Eei3i7vqIfSlsA" type="_m8_vQIQ8Eei3i7vqIfSlsA" direction="return"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_yJxJsIQ8Eei3i7vqIfSlsA" name="setCode" visibility="public" method="_yJ0NAIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_yJyX0IQ8Eei3i7vqIfSlsA" name="pCode" type="_m8_vQIQ8Eei3i7vqIfSlsA"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_yJ1bIIQ8Eei3i7vqIfSlsA" name="getLibelle" visibility="public" method="_yJ2pQIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_yJ2CMIQ8Eei3i7vqIfSlsA" type="_m8_vQIQ8Eei3i7vqIfSlsA" direction="return"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_yJ33YIQ8Eei3i7vqIfSlsA" name="setLibelle" visibility="public" method="_yJ5skIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_yJ4ecIQ8Eei3i7vqIfSlsA" name="pLibelle" type="_m8_vQIQ8Eei3i7vqIfSlsA"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_yJ6ToIQ8Eei3i7vqIfSlsA" name="toString" visibility="public" method="_yJ8I0IQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_yJ7hwIQ8Eei3i7vqIfSlsA" type="_m8_vQIQ8Eei3i7vqIfSlsA" direction="return"/>
+                    </ownedOperation>
+                    <ownedOperation xmi:type="uml:Operation" xmi:id="_yJ_MIIQ8Eei3i7vqIfSlsA" name="getByCode" visibility="public" isStatic="true" method="_yKDdkIQ8Eei3i7vqIfSlsA">
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_yJ_zMIQ8Eei3i7vqIfSlsA" type="_yJh5IIQ8Eei3i7vqIfSlsA" direction="return"/>
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_yKBBUIQ8Eei3i7vqIfSlsA" name="pList" type="_nCiWkIQ8Eei3i7vqIfSlsA">
+                        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_yKBoYIQ8Eei3i7vqIfSlsA"/>
+                        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_yKCPcIQ8Eei3i7vqIfSlsA" value="*"/>
+                      </ownedParameter>
+                      <ownedParameter xmi:type="uml:Parameter" xmi:id="_yKC2gIQ8Eei3i7vqIfSlsA" name="pCode" type="_m8_vQIQ8Eei3i7vqIfSlsA"/>
+                    </ownedOperation>
+                  </packagedElement>
+                </packagedElement>
+              </packagedElement>
+            </packagedElement>
+          </packagedElement>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_m88E4IQ8Eei3i7vqIfSlsA" name="java">
+      <packagedElement xmi:type="uml:Package" xmi:id="_m89TAIQ8Eei3i7vqIfSlsA" name="java">
+        <packagedElement xmi:type="uml:Package" xmi:id="_m8-hIIQ8Eei3i7vqIfSlsA" name="lang">
+          <packagedElement xmi:type="uml:Class" xmi:id="_m8_vQIQ8Eei3i7vqIfSlsA" name="String"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_nChvgIQ8Eei3i7vqIfSlsA" name="util">
+          <packagedElement xmi:type="uml:Class" xmi:id="_nCiWkIQ8Eei3i7vqIfSlsA" name="List"/>
+          <packagedElement xmi:type="uml:Class" xmi:id="_nwC80IQ8Eei3i7vqIfSlsA" name="Date"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Package" xmi:id="_nxixoIQ8Eei3i7vqIfSlsA" name="math">
+          <packagedElement xmi:type="uml:Class" xmi:id="_nxj_wIQ8Eei3i7vqIfSlsA" name="BigDecimal"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_m5lO4IQ8Eei3i7vqIfSlsA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_m5oSMIQ8Eei3i7vqIfSlsA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/PapyrusJava/1#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PapyrusJava_PROFILES/PapyrusJava.profile.uml#_j9REUByGEduN1bTiWJ0lyw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_m6aVUIQ8Eei3i7vqIfSlsA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_m6bjcIQ8Eei3i7vqIfSlsA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/Codegen/1#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://Codegen_PROFILES/Codegen.profile.uml#_fPDsIBa-EearhdjjJ6cVzQ"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_m6nJoIQ8Eei3i7vqIfSlsA">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_m6oXwIQ8Eei3i7vqIfSlsA" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <PapyrusJava:External xmi:id="_nA9pQIQ8Eei3i7vqIfSlsA" name="java.lang.String" base_Classifier="_m8_vQIQ8Eei3i7vqIfSlsA"/>
+  <standard:Create xmi:id="_nBLrsIQ8Eei3i7vqIfSlsA" base_BehavioralFeature="_nBE-AIQ8Eei3i7vqIfSlsA"/>
+  <standard:Create xmi:id="_nBqM0IQ8Eei3i7vqIfSlsA" base_BehavioralFeature="_nBkGMIQ8Eei3i7vqIfSlsA"/>
+  <standard:Create xmi:id="_nB3BIIQ8Eei3i7vqIfSlsA" base_BehavioralFeature="_nByvsIQ8Eei3i7vqIfSlsA"/>
+  <PapyrusJava:External xmi:id="_nCpEQIQ8Eei3i7vqIfSlsA" name="java.util.List" base_Classifier="_nCiWkIQ8Eei3i7vqIfSlsA"/>
+  <PapyrusJava:External xmi:id="_nwH1UIQ8Eei3i7vqIfSlsA" name="java.util.Date" base_Classifier="_nwC80IQ8Eei3i7vqIfSlsA"/>
+  <PapyrusJava:External xmi:id="_nwTbgIQ8Eei3i7vqIfSlsA" name="LigneEcritureComptable" base_Classifier="_nwPKEIQ8Eei3i7vqIfSlsA"/>
+  <PapyrusJava:External xmi:id="_nxnDEIQ8Eei3i7vqIfSlsA" name="java.math.BigDecimal" base_Classifier="_nxj_wIQ8Eei3i7vqIfSlsA"/>
+  <standard:Create xmi:id="_sZIAwIQ8Eei3i7vqIfSlsA" base_BehavioralFeature="_sZChMIQ8Eei3i7vqIfSlsA"/>
+  <standard:Create xmi:id="_sZSY0IQ8Eei3i7vqIfSlsA" base_BehavioralFeature="_sZOucIQ8Eei3i7vqIfSlsA"/>
+  <PapyrusJava:External xmi:id="_w8F1oIQ8Eei3i7vqIfSlsA" name="CompteComptable" base_Classifier="_m8ex4IQ8Eei3i7vqIfSlsA"/>
+  <standard:Create xmi:id="_w8MjUIQ8Eei3i7vqIfSlsA" base_BehavioralFeature="_w8I48YQ8Eei3i7vqIfSlsA"/>
+  <standard:Create xmi:id="_w8SC4IQ8Eei3i7vqIfSlsA" base_BehavioralFeature="_w8PmoIQ8Eei3i7vqIfSlsA"/>
+  <standard:Create xmi:id="_yJk8cIQ8Eei3i7vqIfSlsA" base_BehavioralFeature="_yJjHQYQ8Eei3i7vqIfSlsA"/>
+  <standard:Create xmi:id="_yJqcAIQ8Eei3i7vqIfSlsA" base_BehavioralFeature="_yJnYsIQ8Eei3i7vqIfSlsA"/>
+</xmi:XMI>
