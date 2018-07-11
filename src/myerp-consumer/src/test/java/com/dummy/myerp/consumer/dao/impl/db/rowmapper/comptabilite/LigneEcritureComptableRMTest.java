@@ -55,13 +55,9 @@ public class LigneEcritureComptableRMTest {
 	 * test de LigneEcritureComptable mapRow(ResultSet pRS, int pRowNum) throws SQLException
 	 * 
 	 * @throws SQLException
-	 * @throws SecurityException
-	 * @throws NoSuchFieldException
-	 * @throws IllegalAccessException
-	 * @throws IllegalArgumentException
 	 */
 	@Test
-	public void mapRow() throws SQLException, NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+	public void mapRow() throws SQLException {
 		// création d'une liste de CompteComptable
 		List<CompteComptable> vList = new ArrayList<CompteComptable>();
 		vList.add(new CompteComptable(1));
