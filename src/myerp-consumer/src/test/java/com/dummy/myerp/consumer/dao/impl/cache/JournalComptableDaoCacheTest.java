@@ -60,6 +60,7 @@ public class JournalComptableDaoCacheTest {
 		JournalComptable vJournalComptable4 = new JournalComptable("est12", "JournalComptable 4");
 		vList.add(vJournalComptable4);
 
+		// définition de la list de JournalComptable retourné par le Mock de ComptabiliteDao
 		Mockito.when(comptabiliteDao.getListJournalComptable()).thenReturn(vList);
 
 		// Test de trois journaux de la liste avec des code uniquement numérique/uniquement caractère et mélangé
