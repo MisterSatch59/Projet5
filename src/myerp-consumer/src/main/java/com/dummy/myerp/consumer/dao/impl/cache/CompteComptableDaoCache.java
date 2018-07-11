@@ -12,7 +12,7 @@ public class CompteComptableDaoCache {
 
 	// ==================== Attributs ====================
 	/** The List compte comptable. */
-	private List<CompteComptable> listCompteComptable;
+	private static List<CompteComptable> listCompteComptable;			//******** Oltenos : passage en static pour n'avoir qu'un seul cache...
 
 	// ==================== Constructeurs ====================
 	/**
@@ -29,7 +29,7 @@ public class CompteComptableDaoCache {
 	 *            the numero
 	 * @return {@link CompteComptable} ou {@code null}
 	 */
-	public CompteComptable getByNumero(Integer pNumero) {
+	public static CompteComptable getByNumero(Integer pNumero) {
 		if (listCompteComptable == null) {
 			listCompteComptable = ConsumerHelper.getDaoProxy().getComptabiliteDao().getListCompteComptable();
 		}

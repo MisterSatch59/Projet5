@@ -12,7 +12,7 @@ public class JournalComptableDaoCache {
 
 	// ==================== Attributs ====================
 	/** The List compte comptable. */
-	private List<JournalComptable> listJournalComptable;
+	private static List<JournalComptable> listJournalComptable;			//******** Oltenos : passage en static pour n'avoir qu'un seul cache...
 
 	// ==================== Constructeurs ====================
 	/**
@@ -29,7 +29,7 @@ public class JournalComptableDaoCache {
 	 *            le code du {@link JournalComptable}
 	 * @return {@link JournalComptable} ou {@code null}
 	 */
-	public JournalComptable getByCode(String pCode) {
+	public static JournalComptable getByCode(String pCode) {
 		if (listJournalComptable == null) {
 			listJournalComptable = ConsumerHelper.getDaoProxy().getComptabiliteDao().getListJournalComptable();
 		}
