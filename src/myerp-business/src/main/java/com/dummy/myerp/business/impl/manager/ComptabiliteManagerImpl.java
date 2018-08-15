@@ -1,6 +1,7 @@
 package com.dummy.myerp.business.impl.manager;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 import javax.validation.ConstraintViolation;
@@ -54,7 +55,6 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	/**
 	 * {@inheritDoc}
 	 */
-	// TODO à tester
 	@Override
 	public synchronized void addReference(EcritureComptable pEcritureComptable) {
 		// TODO à implémenter
@@ -76,7 +76,6 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	/**
 	 * {@inheritDoc}
 	 */
-	// TODO à tester
 	@Override
 	public void checkEcritureComptable(EcritureComptable pEcritureComptable) throws FunctionalException {
 		this.checkEcritureComptableUnit(pEcritureComptable);
@@ -92,7 +91,6 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	 * @throws FunctionalException
 	 *             Si l'Ecriture comptable ne respecte pas les règles de gestion
 	 */
-	// TODO tests à compléter
 	protected void checkEcritureComptableUnit(EcritureComptable pEcritureComptable) throws FunctionalException {
 		// ===== Vérification des contraintes unitaires sur les attributs de l'écriture
 		Set<ConstraintViolation<EcritureComptable>> vViolations = getConstraintValidator().validate(pEcritureComptable);
@@ -112,12 +110,10 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 		int vNbrCredit = 0;
 		int vNbrDebit = 0;
 		for (LigneEcritureComptable vLigneEcritureComptable : pEcritureComptable.getListLigneEcriture()) {
-			if (BigDecimal.ZERO.compareTo(ObjectUtils.defaultIfNull(vLigneEcritureComptable.getCredit(),
-					BigDecimal.ZERO)) != 0) {
+			if (BigDecimal.ZERO.compareTo(ObjectUtils.defaultIfNull(vLigneEcritureComptable.getCredit(), BigDecimal.ZERO)) != 0) {
 				vNbrCredit++;
 			}
-			if (BigDecimal.ZERO.compareTo(ObjectUtils.defaultIfNull(vLigneEcritureComptable.getDebit(),
-					BigDecimal.ZERO)) != 0) {
+			if (BigDecimal.ZERO.compareTo(ObjectUtils.defaultIfNull(vLigneEcritureComptable.getDebit(), BigDecimal.ZERO)) != 0) {
 				vNbrDebit++;
 			}
 		}
@@ -130,7 +126,21 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 					"L'écriture comptable doit avoir au moins deux lignes : une ligne au débit et une ligne au crédit.");
 		}
 
-		// TODO ===== RG_Compta_5 : Format et contenu de la référence
+		// ===== RG_Compta_5 : Format et contenu de la référence
+		String ref = pEcritureComptable.getReference();
+		
+		if (!ref.split("-")[0].equals(pEcritureComptable.getJournal().getCode())) {
+			throw new FunctionalException(
+					"La référence n'est pas conforme, le format XX-AAAA-XXXXX n'est pas respecté.");
+		}
+		
+		Calendar vCalendar = Calendar.getInstance();
+		vCalendar.setTime(pEcritureComptable.getDate());
+		if (!ref.split("-")[1].split("/")[0].equals("" + vCalendar.get(Calendar.YEAR))) {
+			throw new FunctionalException(
+					"La référence n'est pas conforme, le format XX-AAAA-XXXXX n'est pas respecté.");
+		}
+		
 		// vérifier que l'année dans la référence correspond bien à la date de l'écriture, idem pour le code journal...
 	}
 
@@ -185,6 +195,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	 */
 	@Override
 	public void updateEcritureComptable(EcritureComptable pEcritureComptable) throws FunctionalException {
+		this.checkEcritureComptable(pEcritureComptable);								//***** Oltenos : Ajout du check avant la modification en persistance de l'écriture comptable
 		TransactionStatus vTS = getTransactionManager().beginTransactionMyERP();
 		try {
 			getDaoProxy().getComptabiliteDao().updateEcritureComptable(pEcritureComptable);

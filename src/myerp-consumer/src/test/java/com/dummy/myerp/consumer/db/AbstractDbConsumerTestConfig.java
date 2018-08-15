@@ -111,7 +111,5 @@ public class AbstractDbConsumerTestConfig {
 		// Test
 		Assert.assertTrue("Test DataSource getDataSource(DataSourcesEnum pDataSourceId) AbstractDbConsumer configuré", abstractDbConsumer.getDataSource(DataSourcesEnum.MYERP).equals(dataSource));
 	}
-	
-	//TODO test de <T> T queryGetSequenceValuePostgreSQL(DataSourcesEnum pDataSourcesId, String pSeqName, Class<T> pSeqValueClass)
 
 }

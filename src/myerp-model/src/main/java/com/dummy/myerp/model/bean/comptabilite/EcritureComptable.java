@@ -23,7 +23,7 @@ public class EcritureComptable {
 	@NotNull
 	private JournalComptable journal;
 	/** The Reference. */
-	@Pattern(regexp = "\\d{1,5}-\\d{4}/\\d{5}")
+	@Pattern(regexp = "\\w{2}-\\d{4}/\\d{5}")		//***** Oltenos : Modification du REGEXP
 	private String reference;
 	/** The Date. */
 	@NotNull
