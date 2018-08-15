@@ -7,6 +7,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
+
 import com.dummy.myerp.consumer.dao.contrat.ComptabiliteDao;
 import com.dummy.myerp.consumer.dao.impl.db.rowmapper.comptabilite.CompteComptableRM;
 import com.dummy.myerp.consumer.dao.impl.db.rowmapper.comptabilite.EcritureComptableRM;
@@ -174,11 +177,10 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 		vSqlParams.addValue("date", pEcritureComptable.getDate(), Types.DATE);
 		vSqlParams.addValue("libelle", pEcritureComptable.getLibelle());
 
-		vJdbcTemplate.update(SQLinsertEcritureComptable, vSqlParams);
-
-		// ----- Récupération de l'id
-		Integer vId = this.queryGetSequenceValuePostgreSQL(DataSourcesEnum.MYERP, "myerp.ecriture_comptable_id_seq",
-				Integer.class);
+		KeyHolder keyHolder = new GeneratedKeyHolder();								//*** Modification Oltenos : utilisation du KeyHolder au lieu des sequences pour récupérer l'id en auto_increment
+		vJdbcTemplate.update(SQLinsertEcritureComptable, vSqlParams, keyHolder);
+		
+		int vId = (int) keyHolder.getKeys().get("id");
 		pEcritureComptable.setId(vId);
 
 		// ===== Liste des lignes d'écriture

@@ -6,7 +6,6 @@ import javax.sql.DataSource;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.jdbc.core.JdbcTemplate;
 import com.dummy.myerp.consumer.ConsumerHelper;
 import com.dummy.myerp.consumer.dao.contrat.DaoProxy;
 import com.dummy.myerp.technical.exception.TechnicalException;
@@ -63,33 +62,6 @@ public abstract class AbstractDbConsumer {
 			throw new UnsatisfiedLinkError("La DataSource suivante n'a pas été initialisée : " + pDataSourceId);
 		}
 		return vRetour;
-	}
-
-	/**
-	 * Renvoie le dernière valeur utilisé d'une séquence
-	 *
-	 * <p>
-	 * <i><b>Attention : </b>Méthode spécifique au SGBD PostgreSQL</i>
-	 * </p>
-	 *
-	 * @param <T>
-	 *            : La classe de la valeur de la séquence.
-	 * @param pDataSourcesId
-	 *            : L'identifiant de la {@link DataSource} à utiliser
-	 * @param pSeqName
-	 *            : Le nom de la séquence dont on veut récupérer la valeur
-	 * @param pSeqValueClass
-	 *            : Classe de la valeur de la séquence
-	 * @return la dernière valeur de la séquence
-	 * @throws TechnicalException 
-	 */
-	protected <T> T queryGetSequenceValuePostgreSQL(DataSourcesEnum pDataSourcesId, String pSeqName, Class<T> pSeqValueClass) {
-
-		JdbcTemplate vJdbcTemplate = new JdbcTemplate(getDataSource(pDataSourcesId));
-		String vSeqSQL = "SELECT last_value FROM " + pSeqName;
-		T vSeqValue = vJdbcTemplate.queryForObject(vSeqSQL, pSeqValueClass);
-
-		return vSeqValue;
 	}
 
 	// ==================== Méthodes Static ====================
