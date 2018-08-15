@@ -136,6 +136,7 @@
 				<configuration>
 					<reuseForks>false</reuseForks>
 					<forkCount>1</forkCount>
+					<argLine>-Dfile.encoding=UTF-8</argLine>
 				</configuration>
 			</plugin>
 		</plugins>
