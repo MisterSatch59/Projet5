@@ -16,6 +16,7 @@ import com.dummy.myerp.model.bean.comptabilite.CompteComptable;
 import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
 import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
 import com.dummy.myerp.model.bean.comptabilite.LigneEcritureComptable;
+import com.dummy.myerp.model.bean.comptabilite.SequenceEcritureComptable;
 import com.dummy.myerp.technical.exception.FunctionalException;
 import com.dummy.myerp.technical.exception.NotFoundException;
 
@@ -57,20 +58,50 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	 */
 	@Override
 	public synchronized void addReference(EcritureComptable pEcritureComptable) {
-		// TODO à implémenter
-		// Bien se réferer à la JavaDoc de cette méthode !
-		/*
-		 * Le principe :
-		 * 1. Remonter depuis la persitance la dernière valeur de la séquence du journal pour l'année de l'écriture
-		 * (table sequence_ecriture_comptable)
-		 * 2. * S'il n'y a aucun enregistrement pour le journal pour l'année concernée :
-		 * 1. Utiliser le numéro 1.
-		 * Sinon :
-		 * 1. Utiliser la dernière valeur + 1
-		 * 3. Mettre à jour la référence de l'écriture avec la référence calculée (RG_Compta_5)
-		 * 4. Enregistrer (insert/update) la valeur de la séquence en persitance
-		 * (table sequence_ecriture_comptable)
-		 */
+	
+		//1. Remonter depuis la persitance la dernière valeur de la séquence du journal pour l'année de l'écriture
+		Calendar vCalendar = Calendar.getInstance();
+		vCalendar.setTime(pEcritureComptable.getDate());
+		int vAnnee = vCalendar.get(Calendar.YEAR);
+		
+		SequenceEcritureComptable sequence = getDaoProxy().getComptabiliteDao().getDerniereSequenceEcritureComptable(pEcritureComptable.getJournal().getCode(), vAnnee);
+		
+		//2. * S'il n'y a aucun enregistrement pour le journal pour l'année concernée
+		SequenceEcritureComptable newSequence = new SequenceEcritureComptable();
+		newSequence.setAnnee(vAnnee);
+		
+		if(sequence == null) {
+			//Utiliser le numéro 1.
+			newSequence.setDerniereValeur(1);
+		}else {
+			//Utiliser la dernière valeur + 1
+			newSequence.setDerniereValeur(sequence.getDerniereValeur().intValue()+1);
+		}
+
+		//3. Mettre à jour la référence de l'écriture avec la référence calculée (RG_Compta_5)
+		String numeroSequence = "";
+		if(newSequence.getDerniereValeur()<10000) {
+			numeroSequence+="0";
+		}
+		if(newSequence.getDerniereValeur()<1000) {
+			numeroSequence+="0";
+		}
+		if(newSequence.getDerniereValeur()<100) {
+			numeroSequence+="0";
+		}
+		if(newSequence.getDerniereValeur()<10) {
+			numeroSequence+="0";
+		}
+		numeroSequence+=newSequence.getDerniereValeur();
+		pEcritureComptable.setReference(pEcritureComptable.getJournal().getCode() + "-" + newSequence.getAnnee() + "/" + numeroSequence );
+		
+		//4. Enregistrer (insert/update) la valeur de la séquence en persitance
+		if(newSequence.getDerniereValeur()==1) {
+			getDaoProxy().getComptabiliteDao().insertSequenceEcritureComptable(pEcritureComptable.getJournal().getCode(), newSequence);
+		}else {
+			getDaoProxy().getComptabiliteDao().updateSequenceEcritureComptable(pEcritureComptable.getJournal().getCode(), newSequence);
+		}
+		
 	}
 
 	/**

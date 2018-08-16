@@ -87,6 +87,28 @@
                 WHERE ecriture_id = :ecriture_id
             </value>
         </property>
+        
+        <property name="SQLgetDerniereSequenceEcritureComptable">
+            <value>
+                SELECT annee, derniere_valeur FROM myerp.sequence_ecriture_comptable
+                WHERE journal_code = :journal_code AND annee = :annee
+            </value>
+        </property>
+        <property name="SQLinsertSequenceEcritureComptable">
+            <value>
+                INSERT INTO myerp.sequence_ecriture_comptable (journal_code, annee, derniere_valeur)
+                VALUES (:journal_code, :annee, :derniere_valeur)
+            </value>
+        </property>
+        <property name="SQLupdateSequenceEcritureComptable">
+            <value>
+                UPDATE myerp.sequence_ecriture_comptable SET
+                	derniere_valeur = :derniere_valeur
+                WHERE journal_code = :journal_code AND annee = :annee
+            </value>
+        </property>
+        
+        
     </bean>
 
 </beans>

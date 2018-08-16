@@ -42,6 +42,7 @@ import com.dummy.myerp.model.bean.comptabilite.CompteComptable;
 import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
 import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
 import com.dummy.myerp.model.bean.comptabilite.LigneEcritureComptable;
+import com.dummy.myerp.model.bean.comptabilite.SequenceEcritureComptable;
 import com.dummy.myerp.technical.exception.NotFoundException;
 import com.dummy.myerp.technical.exception.TechnicalException;
 
@@ -862,4 +863,59 @@ public class ComptabiliteDaoImplTest {
 
 	}
 
+	
+	/**
+	 * test de SequenceEcritureComptable getDerniereSequenceEcritureComptable(String pCodeJournal, int pAnnee)
+	 */
+	@Test
+	public void getDerniereSequenceEcritureComptable() {
+		ComptabiliteDao vComptabiliteDaoImpl = ComptabiliteDaoImpl.getInstance();
+		
+		SequenceEcritureComptable vSequenceEcritureComptable = vComptabiliteDaoImpl.getDerniereSequenceEcritureComptable("AC", 2016);
+		
+		Assert.assertTrue("Test ComptabiliteDaoImpl.getDerniereSequenceEcritureComptable(String pCodeJournal, int pAnnee), la SequenceEcritureComptable retourné est incorrecte"
+				, vSequenceEcritureComptable.getAnnee().intValue()==2016 && vSequenceEcritureComptable.getDerniereValeur().intValue()==40);
+	}
+	
+	/**
+	 * test de void insertSequenceEcritureComptable(String pCodeJournal, SequenceEcritureComptable pSequenceEcritureComptable)
+	 */
+	@Test
+	public void insertSequenceEcritureComptable() {
+		ComptabiliteDao vComptabiliteDaoImpl = ComptabiliteDaoImpl.getInstance();
+		
+		SequenceEcritureComptable vSequenceEcritureComptableAttendu = new SequenceEcritureComptable(2018,35);
+		
+		//Appel méthode à tester
+		vComptabiliteDaoImpl.insertSequenceEcritureComptable("AC", vSequenceEcritureComptableAttendu);
+		
+		
+		SequenceEcritureComptable vSequenceEcritureComptable = vComptabiliteDaoImpl.getDerniereSequenceEcritureComptable("AC", 2018);
+		
+		Assert.assertTrue("Test ComptabiliteDaoImpl.insertSequenceEcritureComptable(String pCodeJournal, SequenceEcritureComptable pSequenceEcritureComptable),"
+				+ " la SequenceEcritureComptable n'a pas été enregistré en base de données"
+				, vSequenceEcritureComptable.getAnnee().intValue()==vSequenceEcritureComptableAttendu.getAnnee().intValue()
+					&& vSequenceEcritureComptable.getDerniereValeur().intValue()==vSequenceEcritureComptableAttendu.getDerniereValeur().intValue());
+	}
+	
+	/**
+	 * test de void updateSequenceEcritureComptable(String pCodeJournal, SequenceEcritureComptable pSequenceEcritureComptable)
+	 */
+	@Test
+	public void updateSequenceEcritureComptable() {
+		ComptabiliteDao vComptabiliteDaoImpl = ComptabiliteDaoImpl.getInstance();
+		
+		SequenceEcritureComptable vSequenceEcritureComptableAttendu = new SequenceEcritureComptable(2016,69);
+		
+		//Appel méthode à tester
+		vComptabiliteDaoImpl.updateSequenceEcritureComptable("AC", vSequenceEcritureComptableAttendu);
+		
+		
+		SequenceEcritureComptable vSequenceEcritureComptable = vComptabiliteDaoImpl.getDerniereSequenceEcritureComptable("AC", 2016);
+		
+		Assert.assertTrue("Test ComptabiliteDaoImpl.updateSequenceEcritureComptable(String pCodeJournal, SequenceEcritureComptable pSequenceEcritureComptable),"
+				+ " la SequenceEcritureComptable n'a pas été enregistré en base de données"
+				, vSequenceEcritureComptable.getAnnee().intValue()==vSequenceEcritureComptableAttendu.getAnnee().intValue()
+					&& vSequenceEcritureComptable.getDerniereValeur().intValue()==vSequenceEcritureComptableAttendu.getDerniereValeur().intValue());
+	}
 }

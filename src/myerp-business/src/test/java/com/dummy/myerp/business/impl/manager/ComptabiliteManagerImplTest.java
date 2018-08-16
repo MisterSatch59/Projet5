@@ -3,8 +3,11 @@ package com.dummy.myerp.business.impl.manager;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -17,6 +20,7 @@ import com.dummy.myerp.model.bean.comptabilite.CompteComptable;
 import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
 import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
 import com.dummy.myerp.model.bean.comptabilite.LigneEcritureComptable;
+import com.dummy.myerp.model.bean.comptabilite.SequenceEcritureComptable;
 import com.dummy.myerp.technical.exception.FunctionalException;
 import com.dummy.myerp.technical.exception.NotFoundException;
 
@@ -34,12 +38,82 @@ public class ComptabiliteManagerImplTest {
 	@Mock
 	private ComptabiliteDao comptabiliteDao;
 
+	
+	/**
+	 * Initialisation du context : config du Mock de daoProxy
+	 * 
+	 * @throws Exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+		// config du Mock de daoProxy
+		AbstractBusinessManager.configure(businessProxy, daoProxy, transactionManager);
+
+		Mockito.when(daoProxy.getComptabiliteDao()).thenReturn(comptabiliteDao);
+	}
+	
+	
+	
+	/**
+	 * Test de void addReference(EcritureComptable pEcritureComptable) avec une première référence dans l'année
+	 */
+	@Test
+	public void addReferenceNouvelleAnnee() {
+		EcritureComptable ecritureComptable = new EcritureComptable();
+		ecritureComptable.setJournal(new JournalComptable("AC", "Achat"));
+		ecritureComptable.setDate(new Date());
+		ecritureComptable.setLibelle("Libelle");
+		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+				null, new BigDecimal(123),
+				null));
+		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+				null, null,
+				new BigDecimal(123)));
+		
+		String referenceAttendu = "AC-2018/00001";
+		
+		Mockito.when(comptabiliteDao.getDerniereSequenceEcritureComptable("AC",2018)).thenReturn(null);
+		
+		//Appel de la méthode à tester
+		manager.addReference(ecritureComptable);
+		
+		//Vérifie que la référence est correcte
+		Assert.assertTrue("Test ComptabiliteManagerImpl.addReference(EcritureComptable pEcritureComptable) : La référence généré n'est pas correcte",
+				ecritureComptable.getReference().equals(referenceAttendu));
+		
+		//Vérife l'enregistrement en persistance
+		Mockito.verify(comptabiliteDao).insertSequenceEcritureComptable(Matchers.eq("AC"), Matchers.any());
+	}
+	
 	/**
 	 * Test de void addReference(EcritureComptable pEcritureComptable)
 	 */
 	@Test
 	public void addReference() {
-		// TODO
+		EcritureComptable ecritureComptable2 = new EcritureComptable();
+		ecritureComptable2.setJournal(new JournalComptable("AC", "Achat"));
+		ecritureComptable2.setDate(new Date());
+		ecritureComptable2.setLibelle("Libelle");
+		ecritureComptable2.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+				null, new BigDecimal(1234),
+				null));
+		ecritureComptable2.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+				null, null,
+				new BigDecimal(1234)));
+		
+		String referenceAttendu2 = "AC-2018/00010";
+		
+		Mockito.when(comptabiliteDao.getDerniereSequenceEcritureComptable("AC",2018)).thenReturn(new SequenceEcritureComptable(2018, 9));
+		
+		//Appel de la méthode à tester
+		manager.addReference(ecritureComptable2);
+		
+		//Vérifie que la référence est correcte
+		Assert.assertTrue("Test ComptabiliteManagerImpl.addReference(EcritureComptable pEcritureComptable) : La référence généré n'est pas correcte",
+				ecritureComptable2.getReference().equals(referenceAttendu2));
+		
+		//Vérife l'enregistrement en persistance
+		Mockito.verify(comptabiliteDao).updateSequenceEcritureComptable(Matchers.eq("AC"), Matchers.any());
 	}
 
 	/**
@@ -214,9 +288,6 @@ public class ComptabiliteManagerImplTest {
 				new BigDecimal(1234)));
 		ecritureComptable2.setReference("AC-2018/00001");
 
-		AbstractBusinessManager.configure(businessProxy, daoProxy, transactionManager);
-
-		Mockito.when(daoProxy.getComptabiliteDao()).thenReturn(comptabiliteDao);
 		Mockito.when(comptabiliteDao.getEcritureComptableByRef("AC-2018/00001")).thenReturn(ecritureComptable1);
 
 		manager.checkEcritureComptableContext(ecritureComptable2);
