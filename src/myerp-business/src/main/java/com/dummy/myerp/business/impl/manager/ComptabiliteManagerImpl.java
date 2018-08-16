@@ -34,7 +34,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	public ComptabiliteManagerImpl() {
 	}
 
-	// ==================== Getters/Setters ====================
+	// ==================== Méthodes GET ====================
 	@Override
 	public List<CompteComptable> getListCompteComptable() {
 		return getDaoProxy().getComptabiliteDao().getListCompteComptable();
@@ -53,6 +53,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 		return getDaoProxy().getComptabiliteDao().getListEcritureComptable();
 	}
 
+	//  ==================== Méthodes "Métiers" ====================
 	/**
 	 * {@inheritDoc}
 	 */
@@ -134,7 +135,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 
 		// ===== RG_Compta_2 : Pour qu'une écriture comptable soit valide, elle doit être équilibrée
 		if (!pEcritureComptable.isEquilibree()) {
-			throw new FunctionalException("L'écriture comptable n'est pas équilibrée.");
+			throw new FunctionalException("VIOLATION RG_COMPTA_2 : L'écriture comptable n'est pas équilibrée.");
 		}
 
 		// ===== RG_Compta_3 : une écriture comptable doit avoir au moins 2 lignes d'écriture (1 au débit, 1 au crédit)
@@ -154,7 +155,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 				|| vNbrCredit < 1
 				|| vNbrDebit < 1) {
 			throw new FunctionalException(
-					"L'écriture comptable doit avoir au moins deux lignes : une ligne au débit et une ligne au crédit.");
+					"VIOLATION RG_COMPTA_3 : L'écriture comptable doit avoir au moins deux lignes : une ligne au débit et une ligne au crédit.");
 		}
 
 		// ===== RG_Compta_5 : Format et contenu de la référence
@@ -162,14 +163,14 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 		
 		if (!ref.split("-")[0].equals(pEcritureComptable.getJournal().getCode())) {
 			throw new FunctionalException(
-					"La référence n'est pas conforme, le format XX-AAAA-XXXXX n'est pas respecté.");
+					"VIOLATION RG_COMPTA_5 : La référence n'est pas conforme, le format XX-AAAA-XXXXX n'est pas respecté.");
 		}
 		
 		Calendar vCalendar = Calendar.getInstance();
 		vCalendar.setTime(pEcritureComptable.getDate());
 		if (!ref.split("-")[1].split("/")[0].equals("" + vCalendar.get(Calendar.YEAR))) {
 			throw new FunctionalException(
-					"La référence n'est pas conforme, le format XX-AAAA-XXXXX n'est pas respecté.");
+					"VIOLATION RG_COMPTA_5 : La référence n'est pas conforme, le format XX-AAAA-XXXXX n'est pas respecté.");
 		}
 		
 		// vérifier que l'année dans la référence correspond bien à la date de l'écriture, idem pour le code journal...
@@ -197,7 +198,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 				// c'est qu'il y a déjà une autre écriture avec la même référence
 				if (pEcritureComptable.getId() == null
 						|| !pEcritureComptable.getId().equals(vECRef.getId())) {
-					throw new FunctionalException("Une autre écriture comptable existe déjà avec la même référence.");
+					throw new FunctionalException("VIOLATION RG_COMPTA_6 : Une autre écriture comptable existe déjà avec la même référence.");
 				}
 			} catch (NotFoundException vEx) {
 				// Dans ce cas, c'est bon, ça veut dire qu'on n'a aucune autre écriture avec la même référence.
@@ -205,6 +206,8 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 		}
 	}
 
+	// ==================== Méthodes INSERT - UPDATE - DELETE ====================
+	
 	/**
 	 * {@inheritDoc}
 	 */

@@ -1,13 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration xmlns="http://logging.apache.org/log4j/2.0/config">
-    <Appenders>
-        <Console name="console" target="SYSTEM_OUT">
-            <PatternLayout pattern="%d %-5p [%t] %C{2} (%F:%L) - %m%n"/>
-        </Console>
-    </Appenders>
-    <Loggers>
-        <Root level="WARN">
-            <AppenderRef ref="console"/>
-        </Root>
-    </Loggers>
+<Configuration status="info">
+	<!-- ===== Appenders ===== -->
+	<Appenders>
+		<!-- == Sortie sur la console == -->
+		<Console name="STDOUT">
+			<PatternLayout pattern="%d %-5level [%t - %class - %method] : %msg%n%throwable" />
+		</Console>
+	</Appenders>
+
+	<!-- ===== Loggers ===== -->
+	<Loggers>
+				
+		<!-- == Logger Spring == -->
+		<Logger name="org.springframework" level="off" additivity="false">
+			<AppenderRef ref="STDOUT" />
+		</Logger>
+		<Logger name="org.springframework.jdbc.core" level="off" additivity="false">
+			<AppenderRef ref="STDOUT" />
+		</Logger>
+		<Logger name="org.springframework.beans" level="off" additivity="false">
+			<AppenderRef ref="STDOUT" />
+		</Logger>
+		
+		<!-- == Logger pour l'application == -->
+		<Logger name="com.dummy.myerp" level="all" additivity="false">
+			<AppenderRef ref="STDOUT" />
+		</Logger>
+
+		<!-- == Logger de base == -->
+		<Root level="all">
+			<AppenderRef ref="STDOUT" />
+		</Root>
+	</Loggers>
 </Configuration>
+

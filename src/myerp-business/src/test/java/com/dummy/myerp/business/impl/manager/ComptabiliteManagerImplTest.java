@@ -52,8 +52,6 @@ public class ComptabiliteManagerImplTest {
 		Mockito.when(daoProxy.getComptabiliteDao()).thenReturn(comptabiliteDao);
 	}
 	
-	
-	
 	/**
 	 * Test de void addReference(EcritureComptable pEcritureComptable) avec une première référence dans l'année
 	 */

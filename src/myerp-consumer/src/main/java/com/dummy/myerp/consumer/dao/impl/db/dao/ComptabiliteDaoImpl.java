@@ -50,7 +50,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 		super();
 	}
 
-	// ==================== Méthodes ====================
+	// ==================== CompteComptable - GET ====================
 	/** SQLgetListCompteComptable */
 	private static String SQLgetListCompteComptable;
 
@@ -66,6 +66,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 		return vList;
 	}
 
+	// ==================== JournalComptable - GET ====================
 	/** SQLgetListJournalComptable */
 	private static String SQLgetListJournalComptable;
 
@@ -142,6 +143,8 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 		return vBean;
 	}
 
+	// ==================== LigneEcritureComptable - LOAD (GET) ====================
+	
 	/** SQLloadListLigneEcriture */
 	private static String SQLloadListLigneEcriture;
 
@@ -291,6 +294,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 	}
 
 	// ==================== SequenceEcritureComptable - GET ====================
+	
 	/** SQLgetDerniereSequenceEcritureComptable */
 	private static String SQLgetDerniereSequenceEcritureComptable;
 
@@ -313,6 +317,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 	}
 
 	// ==================== SequenceEcritureComptable - INSERT ====================
+	
 	/** SQLinsertSequenceEcritureComptable */
 	private static String SQLinsertSequenceEcritureComptable;
 
@@ -333,12 +338,14 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 	}
 
 	// ==================== SequenceEcritureComptable - UPDATE ====================
+	
 	/** SQLupdateSequenceEcritureComptable */
 	private static String SQLupdateSequenceEcritureComptable;
 
 	public void setSQLupdateSequenceEcritureComptable(String pSQLupdateSequenceEcritureComptable) {
 		SQLupdateSequenceEcritureComptable = pSQLupdateSequenceEcritureComptable;
 	}
+	
 	@Override
 	public void updateSequenceEcritureComptable(String pCodeJournal, SequenceEcritureComptable pSequenceEcritureComptable) {
 		NamedParameterJdbcTemplate vJdbcTemplate = new NamedParameterJdbcTemplate(getDataSource(DataSourcesEnum.MYERP));
