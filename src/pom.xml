@@ -29,11 +29,11 @@
     <!-- =============================================================== -->
     <!-- Distrubution management -->
     <!-- =============================================================== -->
-    <distributionManagement>
+     <distributionManagement>
         <site>
             <id>site</id>
             <name>site-doc</name>
-            <url>file://${project.build.directory}/site-doc/</url>
+            <url>file://${adresse.site}</url>
         </site>
     </distributionManagement>
 
@@ -49,6 +49,8 @@
 
         <!-- ===== Application properties ===== -->
         <application.name>MyERP</application.name>
+        
+        <adresse.site>D:\eclipse-workspace\Projet5\site-doc</adresse.site>
 
         <!-- ===== Version properties ===== -->
         <log4j.version>2.8.1</log4j.version>
@@ -94,23 +96,6 @@
             <id>test-consumer</id>
         </profile>
     </profiles>
-
-
-    <!-- =============================================================== -->
-    <!-- Repositories -->
-    <!-- =============================================================== -->
-    <repositories>
-        <!-- ===== Project local repository ===== -->
-        <repository>
-            <id>project.local</id>
-            <name>project.local</name>
-            <url>file://${basedir}/../src/lib/</url>
-            <releases>
-                <updatePolicy>always</updatePolicy>
-            </releases>
-        </repository>
-    </repositories>
-
 
     <!-- =============================================================== -->
     <!-- Dependency managment -->
@@ -344,16 +329,6 @@
                     <version>2.20</version>
                 </plugin>
 
-                <!-- ===== Plugin d'analyse de code Checkstyle ===== -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.17</version>
-                    <configuration>
-                        <configLocation>src/build/checkstyle.xml</configLocation>
-                    </configuration>
-                </plugin>
-
                 <!-- ===== Plugin de génération d'un site de documentation du projet ===== -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -361,6 +336,7 @@
                     <version>3.6</version>
                     <inherited>true</inherited>
                     <configuration>
+                    	<siteDirectory>${session.executionRootDirectory}/src/site</siteDirectory>
                         <locales>fr</locales>
                         <relativizeDecorationLinks>false</relativizeDecorationLinks>
                     </configuration>
@@ -379,7 +355,7 @@
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>2.10.4</version>
                 </plugin>
-
+      
                 <!-- ===== Aide au constructions particulières ===== -->
                 <!-- Ex : Ajout de répertoire de sources générées en tant que source d'un module -->
                 <plugin>
@@ -397,7 +373,7 @@
     <!-- =============================================================== -->
     <reporting>
         <excludeDefaults>true</excludeDefaults>
-        <outputDirectory>${project.build.directory}/site</outputDirectory>
+        <outputDirectory>${project.build.directory}/site-doc/</outputDirectory>
         <plugins>
             <!-- ===== Génération du site de documentation de base avec les "rapports génériques" ===== -->
             <plugin>
@@ -412,53 +388,50 @@
                         <reports>
                             <report>index</report>
                             <report>summary</report>
-                            <report>license</report>
                             <report>modules</report>
                             <report>dependencies</report>
-                            <report>dependency-convergence</report>
                             <report>dependency-management</report>
-                            <report>plugin-management</report>
                             <report>plugins</report>
-                            <report>project-team</report>
-                            <report>scm</report>
                         </reports>
                     </reportSet>
                 </reportSets>
             </plugin>
 
             <!-- ===== Création du rapport des tests unitaires (JUnit) ===== -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.20</version>
-                <configuration>
-                    <linkXRef>false</linkXRef>
-                </configuration>
-                <reportSets>
-                    <!-- reportSet par défaut, exécuté dans tous les modules (non-aggregate reports) -->
-                    <reportSet>
-                        <reports>
-                            <!-- goal "report-only" afin de ne pas relancer les tests unitaires
-                                 car normalement ils ont été lancés par la phase compile -->
-                            <report>report-only</report>
-                        </reports>
-                    </reportSet>
-                    <reportSet>
-                        <!-- reportSet d'agrégation des rapports des sous-modules -->
-                        <id>aggregate</id>
-                        <!-- don't run aggregate in child modules -->
-                        <inherited>false</inherited>
-                        <reports>
-                            <!-- goal "report-only" afin de ne pas relancer les tests unitaires
-                                 car normalement ils ont été lancés par la phase compile -->
-                            <report>report-only</report>
-                        </reports>
-                        <configuration>
-                            <aggregate>true</aggregate>
-                        </configuration>
-                    </reportSet>
-                </reportSets>
-            </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>2.20</version>
+				<configuration>
+					<linkXRef>false</linkXRef>
+				</configuration>
+				<reportSets>
+					<reportSet>
+						<!-- reportSet d'agrégation des rapports des sous-modules -->
+						<id>aggregate</id>
+						<!-- don't run aggregate in child modules -->
+						<inherited>false</inherited>
+						<reports>
+							<!-- goal "report-only" afin de ne pas relancer les tests unitaires 
+								car normalement ils ont été lancés par la phase compile -->
+							<report>report-only</report>
+						</reports>
+						<configuration>
+							<aggregate>true</aggregate>
+						</configuration>
+					</reportSet>
+					<!-- reportSet par défaut, exécuté dans tous les modules (non-aggregate 
+						reports) -->
+					<reportSet>
+						<reports>
+							<!-- goal "report-only" afin de ne pas relancer les tests unitaires 
+								car normalement ils ont été lancés par la phase compile -->
+							<report>report-only</report>
+						</reports>
+					</reportSet>
+		
+				</reportSets>
+			</plugin>
 
             <!-- ===== Génération de la Javadoc ===== -->
             <plugin>
@@ -497,37 +470,6 @@
                 </reportSets>
             </plugin>
 
-            <!-- ===== Création du rapport d'analyse du code par Checkstyle ===== -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>2.17</version>
-                <configuration>
-                    <configLocation>src/build/checkstyle.xml</configLocation>
-                    <linkXRef>false</linkXRef>
-                </configuration>
-                <reportSets>
-                    <!-- reportSet par défaut, exécuté dans tous les modules (non-aggregate reports) -->
-                    <reportSet>
-                        <reports>
-                            <report>checkstyle</report>
-                        </reports>
-                    </reportSet>
-                    <!-- reportSet d'agrégation des rapports des sous-modules -->
-                    <reportSet>
-                        <id>checkstyle-aggregate</id>
-                        <!-- don't run aggregate in child modules -->
-                        <inherited>false</inherited>
-                        <configuration>
-                            <!-- Skip checktyle execution will only scan the outputFile. -->
-                            <skipExec>true</skipExec>
-                        </configuration>
-                        <reports>
-                            <report>checkstyle-aggregate</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
         </plugins>
     </reporting>
 </project>

@@ -28,7 +28,7 @@
         <site>
             <id>site</id>
             <name>site-doc</name>
-            <url>file://${basedir}/../target/site-doc/${project.artifactId}/</url>
+            <url>file://${adresse.site}\${project.artifactId}\</url>
         </site>
     </distributionManagement>
 

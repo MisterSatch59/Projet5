@@ -109,6 +109,7 @@ public interface ComptabiliteDao {
 	 *            code du JournalComptable concerné
 	 * 
 	 * @param pSequenceEcritureComptable
+	 *            -
 	 */
 	void insertSequenceEcritureComptable(String pCodeJournal, SequenceEcritureComptable pSequenceEcritureComptable);
 
@@ -119,6 +120,7 @@ public interface ComptabiliteDao {
 	 *            code du JournalComptable concerné
 	 * 
 	 * @param pSequenceEcritureComptable
+	 *            -
 	 */
 	void updateSequenceEcritureComptable(String pCodeJournal, SequenceEcritureComptable pSequenceEcritureComptable);
 }

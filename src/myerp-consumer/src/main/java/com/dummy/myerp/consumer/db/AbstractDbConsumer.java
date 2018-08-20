@@ -50,7 +50,6 @@ public abstract class AbstractDbConsumer {
 	 * @param pDataSourceId
 	 *            -
 	 * @return SimpleJdbcTemplate
-	 * @throws TechnicalException 
 	 */
 	protected DataSource getDataSource(DataSourcesEnum pDataSourceId) {
 		if(mapDataSource==null) {														//******** Correction Oltenos : ajout du cas où les dataSource n'ont pas été initialisé
@@ -70,7 +69,8 @@ public abstract class AbstractDbConsumer {
 	 *
 	 * @param pMapDataSource
 	 *            -
-	 * @throws TechnicalException 
+	 * @throws TechnicalException
+	 *             -
 	 */
 	public static void configure(Map<DataSourcesEnum, DataSource> pMapDataSource) throws TechnicalException {
 		if(pMapDataSource==null || pMapDataSource.size()==0) {														//******** Correction Oltenos : ajout du cas pMapDataSource null ou vide
