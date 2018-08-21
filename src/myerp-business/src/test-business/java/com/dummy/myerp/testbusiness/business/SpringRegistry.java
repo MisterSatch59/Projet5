@@ -19,7 +19,7 @@ public final class SpringRegistry {
 	private static final SpringRegistry INSTANCE = new SpringRegistry();
 
 	/** Nom des fichiers de contexte de l'application */
-	private static final String CONTEXT_APPLI_LOCATION = "classpath:/com/dummy/myerp/testbusiness/business/applicationContext.xml";
+	private static final String CONTEXT_APPLI_LOCATION = "classpath:testContext.xml";
 
 	/** Le context spring de l'application */
 	private ApplicationContext contextAppli;
