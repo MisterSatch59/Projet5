@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/Oltenos/Projet5.svg?branch=master)](https://travis-ci.com/Oltenos/Projet5)
+
 # MyERP
 
 ## Organisation du répertoire
@@ -38,3 +40,19 @@ Il comporte :
     docker-compose stop
     docker-compose rm -v
     docker-compose up
+
+# Rapports
+Il est possible d'obtenir les rapports suivant : 
+ - Site Maven contenant (dosser site-doc) : 
+ 	- Javadoc
+ 	- Résultats des test
+ - Rapport de couverture du code par les test unitaires par modules (dans siste-doc/module/cobertura)
+ - Rapports d'analyse avec SonarQube
+
+Pour celà il faut lancer les commandes suivantes :
+ - mvn test cobertura:cobertura -PtestCoverage
+ - mvn test package site site-deploy
+ - mvn test cobertura:cobertura -Dcobertura.report.format=xml -PtestCoverage
+ - mvn sonar:sonar (après avoir lancé le serveur sonar)
+
+ 
