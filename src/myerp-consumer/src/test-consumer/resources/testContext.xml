@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+	
+	<!-- Chargement du fichier properties contenant la configuration de la datasource vers la base de données de test -->
+	<bean id="dataSourceConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="classpath:db-test.properties" />
+	</bean>
+
+	<!-- Création du bean "dataSource" -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSourceFactory" factory-method="createDataSource" destroy-method="close">
+		<constructor-arg ref="dataSourceConfiguration" />
+	</bean>
+	
+	<!-- création du bean txManager avec une dataSource JDBC -->
+	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	
+    <!-- ==================== Chargement des context du module consumer ==================== -->
+	<import resource="classpath:/com/dummy/myerp/consumer/applicationContext.xml" />
+
+
+    
+
+</beans>
