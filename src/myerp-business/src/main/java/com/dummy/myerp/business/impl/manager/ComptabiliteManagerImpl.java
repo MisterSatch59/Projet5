@@ -53,56 +53,69 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 		return getDaoProxy().getComptabiliteDao().getListEcritureComptable();
 	}
 
-	//  ==================== Méthodes "Métiers" ====================
+	// ==================== Méthodes "Métiers" ====================
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public synchronized void addReference(EcritureComptable pEcritureComptable) {
-	
-		//1. Remonter depuis la persitance la dernière valeur de la séquence du journal pour l'année de l'écriture
+
+		// 1. Remonter depuis la persitance la dernière valeur de la séquence du journal pour l'année de l'écriture
 		Calendar vCalendar = Calendar.getInstance();
 		vCalendar.setTime(pEcritureComptable.getDate());
 		int vAnnee = vCalendar.get(Calendar.YEAR);
-		
+
 		SequenceEcritureComptable sequence = getDaoProxy().getComptabiliteDao().getDerniereSequenceEcritureComptable(pEcritureComptable.getJournal().getCode(), vAnnee);
-		
-		//2. * S'il n'y a aucun enregistrement pour le journal pour l'année concernée
+
+		// 2. * S'il n'y a aucun enregistrement pour le journal pour l'année concernée
 		SequenceEcritureComptable newSequence = new SequenceEcritureComptable();
 		newSequence.setAnnee(vAnnee);
-		
-		if(sequence == null) {
-			//Utiliser le numéro 1.
+
+		if (sequence == null) {
+			// Utiliser le numéro 1.
 			newSequence.setDerniereValeur(1);
-		}else {
-			//Utiliser la dernière valeur + 1
-			newSequence.setDerniereValeur(sequence.getDerniereValeur().intValue()+1);
+		} else {
+			// Utiliser la dernière valeur + 1
+			newSequence.setDerniereValeur(sequence.getDerniereValeur().intValue() + 1);
 		}
 
-		//3. Mettre à jour la référence de l'écriture avec la référence calculée (RG_Compta_5)
+		// 3. Mettre à jour la référence de l'écriture avec la référence calculée (RG_Compta_5)
 		String numeroSequence = "";
-		if(newSequence.getDerniereValeur()<10000) {
-			numeroSequence+="0";
+		if (newSequence.getDerniereValeur() < 10000) {
+			numeroSequence += "0";
 		}
-		if(newSequence.getDerniereValeur()<1000) {
-			numeroSequence+="0";
+		if (newSequence.getDerniereValeur() < 1000) {
+			numeroSequence += "0";
 		}
-		if(newSequence.getDerniereValeur()<100) {
-			numeroSequence+="0";
+		if (newSequence.getDerniereValeur() < 100) {
+			numeroSequence += "0";
 		}
-		if(newSequence.getDerniereValeur()<10) {
-			numeroSequence+="0";
+		if (newSequence.getDerniereValeur() < 10) {
+			numeroSequence += "0";
 		}
-		numeroSequence+=newSequence.getDerniereValeur();
-		pEcritureComptable.setReference(pEcritureComptable.getJournal().getCode() + "-" + newSequence.getAnnee() + "/" + numeroSequence );
-		
-		//4. Enregistrer (insert/update) la valeur de la séquence en persitance
-		if(newSequence.getDerniereValeur()==1) {
-			getDaoProxy().getComptabiliteDao().insertSequenceEcritureComptable(pEcritureComptable.getJournal().getCode(), newSequence);
-		}else {
-			getDaoProxy().getComptabiliteDao().updateSequenceEcritureComptable(pEcritureComptable.getJournal().getCode(), newSequence);
+		numeroSequence += newSequence.getDerniereValeur();
+		pEcritureComptable.setReference(pEcritureComptable.getJournal().getCode() + "-" + newSequence.getAnnee() + "/" + numeroSequence);
+
+		// 4. Enregistrer (insert/update) la valeur de la séquence en persitance
+		TransactionStatus vTS = getTransactionManager().beginTransactionMyERP();
+		if (newSequence.getDerniereValeur() == 1) {
+			try {
+				getDaoProxy().getComptabiliteDao().insertSequenceEcritureComptable(pEcritureComptable.getJournal().getCode(), newSequence);
+				getTransactionManager().commitMyERP(vTS);
+				vTS = null;
+			} finally {
+				getTransactionManager().rollbackMyERP(vTS);
+			}
+
+		} else {
+			try {
+				getDaoProxy().getComptabiliteDao().updateSequenceEcritureComptable(pEcritureComptable.getJournal().getCode(), newSequence);
+				getTransactionManager().commitMyERP(vTS);
+				vTS = null;
+			} finally {
+				getTransactionManager().rollbackMyERP(vTS);
+			}
 		}
-		
 	}
 
 	/**
@@ -160,19 +173,19 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 
 		// ===== RG_Compta_5 : Format et contenu de la référence
 		String ref = pEcritureComptable.getReference();
-		
+
 		if (!ref.split("-")[0].equals(pEcritureComptable.getJournal().getCode())) {
 			throw new FunctionalException(
 					"VIOLATION RG_COMPTA_5 : La référence n'est pas conforme, le format XX-AAAA-XXXXX n'est pas respecté.");
 		}
-		
+
 		Calendar vCalendar = Calendar.getInstance();
 		vCalendar.setTime(pEcritureComptable.getDate());
 		if (!ref.split("-")[1].split("/")[0].equals("" + vCalendar.get(Calendar.YEAR))) {
 			throw new FunctionalException(
 					"VIOLATION RG_COMPTA_5 : La référence n'est pas conforme, le format XX-AAAA-XXXXX n'est pas respecté.");
 		}
-		
+
 		// vérifier que l'année dans la référence correspond bien à la date de l'écriture, idem pour le code journal...
 	}
 
@@ -207,7 +220,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	}
 
 	// ==================== Méthodes INSERT - UPDATE - DELETE ====================
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -229,7 +242,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	 */
 	@Override
 	public void updateEcritureComptable(EcritureComptable pEcritureComptable) throws FunctionalException {
-		this.checkEcritureComptable(pEcritureComptable);								//***** Oltenos : Ajout du check avant la modification en persistance de l'écriture comptable
+		this.checkEcritureComptable(pEcritureComptable); // ***** Oltenos : Ajout du check avant la modification en persistance de l'écriture comptable
 		TransactionStatus vTS = getTransactionManager().beginTransactionMyERP();
 		try {
 			getDaoProxy().getComptabiliteDao().updateEcritureComptable(pEcritureComptable);

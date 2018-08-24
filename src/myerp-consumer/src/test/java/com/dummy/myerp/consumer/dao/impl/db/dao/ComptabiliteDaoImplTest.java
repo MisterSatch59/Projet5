@@ -875,6 +875,11 @@ public class ComptabiliteDaoImplTest {
 		
 		Assert.assertTrue("Test ComptabiliteDaoImpl.getDerniereSequenceEcritureComptable(String pCodeJournal, int pAnnee), la SequenceEcritureComptable retourné est incorrecte"
 				, vSequenceEcritureComptable.getAnnee().intValue()==2016 && vSequenceEcritureComptable.getDerniereValeur().intValue()==40);
+		
+		vSequenceEcritureComptable = vComptabiliteDaoImpl.getDerniereSequenceEcritureComptable("AC", 2018);
+		
+		Assert.assertTrue("Test ComptabiliteDaoImpl.getDerniereSequenceEcritureComptable(String pCodeJournal, int pAnnee), la SequenceEcritureComptable retourné est incorrecte"
+				, vSequenceEcritureComptable==null);
 	}
 	
 	/**

@@ -4,6 +4,17 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 
+
+	<!-- Chargement du fichier properties contenant la configuration de la datasource vers la base de données de test -->
+	<bean id="dataSourceConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="location" value="classpath:db-test.properties" />
+	</bean>
+
+	<!-- Création du bean "dataSource" -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSourceFactory" factory-method="createDataSource" destroy-method="close">
+		<constructor-arg ref="dataSourceConfiguration" />
+	</bean>
+	
     <!-- ====================   Chargement des context des modules consumer et business   ==================== -->
 
     <import resource="classpath:/com/dummy/myerp/consumer/applicationContext.xml"/>

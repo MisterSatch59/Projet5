@@ -313,7 +313,8 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 		SequenceEcritureComptableRM vRM = new SequenceEcritureComptableRM();
 		List<SequenceEcritureComptable> vList = namedParameterJdbcTemplate.query(SQLgetDerniereSequenceEcritureComptable, vParams, vRM);
 
-		return vList.get(0);
+		if(vList.size()==0) return null;
+		else return vList.get(0);
 	}
 
 	// ==================== SequenceEcritureComptable - INSERT ====================
