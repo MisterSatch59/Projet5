@@ -21,7 +21,6 @@ Il comporte :
 *   une base de données _PostgreSQL_ contenant un jeu de données de démo (`postgresql://127.0.0.1:9032/db_myerp`)
 
 
-
 ### Lancement
 
     cd docker/dev
@@ -46,13 +45,12 @@ Il est possible d'obtenir les rapports suivant :
  - Site Maven contenant (dosser site-doc) : 
  	- Javadoc
  	- Résultats des test
- - Rapport de couverture du code par les test unitaires par modules (dans siste-doc/module/cobertura)
+ - Rapport de couverture du code par les test unitaires par modules (dans site-doc/module/cobertura et via SonarQube)
  - Rapports d'analyse avec SonarQube
 
 Pour celà il faut lancer les commandes suivantes :
- - mvn test cobertura:cobertura -PtestCoverage
+ - mvn clean install -PtestCoverage
  - mvn test package site site-deploy
- - mvn test cobertura:cobertura -Dcobertura.report.format=xml -PtestCoverage
  - mvn sonar:sonar (après avoir lancé le serveur sonar)
 
  

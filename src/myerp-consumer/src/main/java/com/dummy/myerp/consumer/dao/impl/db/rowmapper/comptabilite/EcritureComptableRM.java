@@ -20,7 +20,7 @@ public class EcritureComptableRM implements RowMapper<EcritureComptable> {
 		vBean.setId(pRS.getInt("id"));
 		vBean.setJournal(JournalComptableDaoCache.getByCode(pRS.getString("journal_code")));
 		vBean.setReference(pRS.getString("reference"));
-		vBean.setDate(ResultSetHelper.getDate(pRS, "date")); // ******** Oltenos : modif utilisation de ResultSetHelper pour troncer les heures/minutes/secondes
+		vBean.setDate(ResultSetHelper.getDate(pRS, "date")); // ******** Oltenos : modif utilisation de ResultSetHelper pour tronquer les heures/minutes/secondes
 		vBean.setLibelle(pRS.getString("libelle"));
 
 		// Chargement des lignes d'écriture

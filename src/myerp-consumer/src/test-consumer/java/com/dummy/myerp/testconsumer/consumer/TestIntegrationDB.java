@@ -118,7 +118,7 @@ public class TestIntegrationDB extends ConsumerTestCase {
 
 		vEcritureComptableAttendu.setLibelle("Cartouches d’imprimante");
 
-		EcritureComptable vEcritureComptable = getComptabiliteDao().getEcritureComptable(-1);
+		EcritureComptable vEcritureComptable = getDaoProxy().getComptabiliteDao().getEcritureComptable(-1);
 
 		// Test (sans test de la list de LigneEcritureComptable)
 		boolean vTest = vEcritureComptableAttendu.getJournal().getCode().equals(vEcritureComptable.getJournal().getCode());
@@ -149,7 +149,7 @@ public class TestIntegrationDB extends ConsumerTestCase {
 
 		TransactionStatus vTransactionStatus = txManager.getTransaction(new DefaultTransactionDefinition());
 		try {
-			getComptabiliteDao().deleteEcritureComptable(-1);
+			getDaoProxy().getComptabiliteDao().deleteEcritureComptable(-1);
 
 			TransactionStatus vTScommit = vTransactionStatus;
 			vTransactionStatus = null;
@@ -163,7 +163,7 @@ public class TestIntegrationDB extends ConsumerTestCase {
 
 		boolean notFound = false;
 		try {
-			getComptabiliteDao().getEcritureComptable(-1);
+			getDaoProxy().getComptabiliteDao().getEcritureComptable(-1);
 		} catch (NotFoundException e) {
 			notFound = true;
 		}
