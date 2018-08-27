@@ -34,6 +34,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.dummy.myerp.consumer.ConsumerHelper;
+import com.dummy.myerp.consumer.ModelTestUtilities;
 import com.dummy.myerp.consumer.dao.contrat.ComptabiliteDao;
 import com.dummy.myerp.consumer.dao.contrat.DaoProxy;
 import com.dummy.myerp.consumer.db.AbstractDbConsumer;
@@ -66,10 +67,10 @@ public class ComptabiliteDaoImplTest {
 
 	private static ComptabiliteDao comptabiliteDao;
 
-	private List<CompteComptable> listCompteComptableAttendu;
-	private List<JournalComptable> listJournalComptableAttendu;
-	private List<EcritureComptable> listEcritureComptableAttendu; // Les list des ligne d'écriture comptable sont vide.
-	private List<LigneEcritureComptable> listLigneEcritureAttendu;
+	private static List<CompteComptable> listCompteComptableAttendu;
+	private static List<JournalComptable> listJournalComptableAttendu;
+	private static EcritureComptable ecritureComptableAttendu; // Il s'agit de l'EcritureComptable d'Id -1 utilisé pour les tests
+	private static List<LigneEcritureComptable> listLigneEcritureAttendu;
 
 	/**
 	 * Initialisation du context : config de la dataSource de le BD de test
@@ -106,6 +107,11 @@ public class ComptabiliteDaoImplTest {
 		ApplicationContext vApplicationContext = new ClassPathXmlApplicationContext("classpath:com/dummy/myerp/consumer/sqlContext.xml");
 
 		comptabiliteDao = vApplicationContext.getBean("ComptabiliteDaoImpl", ComptabiliteDao.class);
+
+		creerListCompteComptableAttendu();
+		creerListJournalComptableAttendu();
+		creerListLigneEcritureAttendu();
+		creerEcritureComptableAttendu();
 	}
 
 	/**
@@ -199,9 +205,9 @@ public class ComptabiliteDaoImplTest {
 	}
 
 	/**
-	 * Création de la list des CompteComptable attendu (même vealeurs que la base de données)
+	 * Création de la list des CompteComptable attendu (même valeurs que la base de données)
 	 */
-	private void creerListCompteComptableAttendu() {
+	private static void creerListCompteComptableAttendu() {
 		listCompteComptableAttendu = new ArrayList<CompteComptable>();
 		listCompteComptableAttendu.add(new CompteComptable(401, "Fournisseurs"));
 		listCompteComptableAttendu.add(new CompteComptable(411, "Clients"));
@@ -213,9 +219,9 @@ public class ComptabiliteDaoImplTest {
 	}
 
 	/**
-	 * Création de la list des JournalComptable attendu (même vealeurs que la base de données)
+	 * Création de la list des JournalComptable attendu (même valeurs que la base de données)
 	 */
-	private void creerListJournalComptableAttendu() {
+	private static void creerListJournalComptableAttendu() {
 
 		listJournalComptableAttendu = new ArrayList<JournalComptable>();
 		listJournalComptableAttendu.add(new JournalComptable("AC", "Achat"));
@@ -226,136 +232,67 @@ public class ComptabiliteDaoImplTest {
 	}
 
 	/**
-	 * Création de la list des EcritureComptable attendu (même vealeurs que la base de données)
+	 * Création de l'EcritureComptable attendu (même vealeurs que la base de données) Il s'agit de l'EcritureComptable d'Id -1
 	 */
-	private void creerListEcritureComptableAttendu() {
+	private static void creerEcritureComptableAttendu() {
 		ComptabiliteDao vComptabiliteDaoImpl = ComptabiliteDaoImpl.getInstance();
 		List<JournalComptable> vListJounalComptable = vComptabiliteDaoImpl.getListJournalComptable();
 
-		listEcritureComptableAttendu = new ArrayList<EcritureComptable>();
-
-		// Id = -1
-		EcritureComptable vEcritureComptable = new EcritureComptable();
-		vEcritureComptable.setId(-1);
+		ecritureComptableAttendu = new EcritureComptable();
+		ecritureComptableAttendu.setId(-1);
 		for (JournalComptable journalComptable : vListJounalComptable) {
 			if (journalComptable.getCode().equals("AC"))
-				vEcritureComptable.setJournal(journalComptable);
+				ecritureComptableAttendu.setJournal(journalComptable);
 		}
-		vEcritureComptable.setReference("AC-2016/00001");
+		ecritureComptableAttendu.setReference("AC-2016/00001");
 
 		Calendar vCalendar = Calendar.getInstance();
 		vCalendar.set(2016, 12 - 1, 31);
-		vEcritureComptable.setDate(vCalendar.getTime());
+		ecritureComptableAttendu.setDate(vCalendar.getTime());
 
-		vEcritureComptable.setLibelle("Cartouches d’imprimante");
+		ecritureComptableAttendu.setLibelle("Cartouches d’imprimante");
 
-		listEcritureComptableAttendu.add(vEcritureComptable);
-
-		// Id = -2
-		EcritureComptable vEcritureComptable2 = new EcritureComptable();
-		vEcritureComptable2.setId(-2);
-		for (JournalComptable journalComptable : vListJounalComptable) {
-			if (journalComptable.getCode().equals("VE"))
-				vEcritureComptable2.setJournal(journalComptable);
-		}
-		vEcritureComptable2.setReference("VE-2016/00002");
-
-		Calendar vCalendar2 = Calendar.getInstance();
-		vCalendar2.set(2016, 12 - 1, 30);
-		vEcritureComptable2.setDate(vCalendar2.getTime());
-
-		vEcritureComptable2.setLibelle("TMA Appli Xxx");
-
-		listEcritureComptableAttendu.add(vEcritureComptable2);
-
-		// Id = -3
-		EcritureComptable vEcritureComptable3 = new EcritureComptable();
-		vEcritureComptable3.setId(-3);
-		for (JournalComptable journalComptable : vListJounalComptable) {
-			if (journalComptable.getCode().equals("BQ"))
-				vEcritureComptable3.setJournal(journalComptable);
-		}
-		vEcritureComptable3.setReference("BQ-2016/00003");
-
-		Calendar vCalendar3 = Calendar.getInstance();
-		vCalendar3.set(2016, 12 - 1, 29);
-		vEcritureComptable3.setDate(vCalendar3.getTime());
-
-		vEcritureComptable3.setLibelle("Paiement Facture F110001");
-
-		listEcritureComptableAttendu.add(vEcritureComptable3);
-
-		// Id = -4
-		EcritureComptable vEcritureComptable4 = new EcritureComptable();
-		vEcritureComptable4.setId(-4);
-		for (JournalComptable journalComptable : vListJounalComptable) {
-			if (journalComptable.getCode().equals("VE"))
-				vEcritureComptable4.setJournal(journalComptable);
-		}
-		vEcritureComptable4.setReference("VE-2016/00004");
-
-		Calendar vCalendar4 = Calendar.getInstance();
-		vCalendar4.set(2016, 12 - 1, 28);
-		vEcritureComptable4.setDate(vCalendar4.getTime());
-
-		vEcritureComptable4.setLibelle("TMA Appli Yyy");
-
-		listEcritureComptableAttendu.add(vEcritureComptable4);
-
-		// Id = -5
-		EcritureComptable vEcritureComptable5 = new EcritureComptable();
-		vEcritureComptable5.setId(-5);
-		for (JournalComptable journalComptable : vListJounalComptable) {
-			if (journalComptable.getCode().equals("BQ"))
-				vEcritureComptable5.setJournal(journalComptable);
-		}
-		vEcritureComptable5.setReference("BQ-2016/00005");
-
-		Calendar vCalendar5 = Calendar.getInstance();
-		vCalendar5.set(2016, 12 - 1, 27);
-		vEcritureComptable5.setDate(vCalendar5.getTime());
-
-		vEcritureComptable5.setLibelle("Paiement Facture C110002");
-
-		listEcritureComptableAttendu.add(vEcritureComptable5);
+		ecritureComptableAttendu.getListLigneEcriture().addAll(listLigneEcritureAttendu);
 
 	}
 
 	/**
 	 * Création de la list des LigneEcriture attendu (même vealeurs que la base de données) UNIQUEMENT POUR L'EcritureComptable d'id -1!!
 	 */
-	private void creerListLigneEcritureAttendu() {
+	private static void creerListLigneEcritureAttendu() {
 		ComptabiliteDao vComptabiliteDaoImpl = ComptabiliteDaoImpl.getInstance();
 
 		List<CompteComptable> vListCompteComptable = vComptabiliteDaoImpl.getListCompteComptable();
 
 		// Création des LigneEcritureComptable attendues
-		LigneEcritureComptable ligne1 = new LigneEcritureComptable();
+
+		CompteComptable vCompteComptable = null;
 		for (CompteComptable compteComptable : vListCompteComptable) {
 			if (compteComptable.getNumero() == 606)
-				ligne1.setCompteComptable(compteComptable);
+				vCompteComptable = compteComptable;
 		}
-		ligne1.setLibelle("Cartouches d’imprimante");
-		ligne1.setDebit(new BigDecimal("43.95"));
-		ligne1.setCredit(null);
+		String vLibelle = "Cartouches d’imprimante";
+		BigDecimal vDebit = new BigDecimal("43.95");
+		BigDecimal vCredit = null;
+		LigneEcritureComptable ligne1 = new LigneEcritureComptable(vCompteComptable, vLibelle, vDebit, vCredit);
 
-		LigneEcritureComptable ligne2 = new LigneEcritureComptable();
 		for (CompteComptable compteComptable : vListCompteComptable) {
 			if (compteComptable.getNumero() == 4456)
-				ligne2.setCompteComptable(compteComptable);
+				vCompteComptable = compteComptable;
 		}
-		ligne2.setLibelle("TVA 20%");
-		ligne2.setDebit(new BigDecimal("8.79"));
-		ligne2.setCredit(null);
+		vLibelle = "TVA 20%";
+		vDebit = new BigDecimal("8.79");
+		vCredit = null;
+		LigneEcritureComptable ligne2 = new LigneEcritureComptable(vCompteComptable, vLibelle, vDebit, vCredit);
 
-		LigneEcritureComptable ligne3 = new LigneEcritureComptable();
 		for (CompteComptable compteComptable : vListCompteComptable) {
 			if (compteComptable.getNumero() == 401)
-				ligne3.setCompteComptable(compteComptable);
+				vCompteComptable = compteComptable;
 		}
-		ligne3.setLibelle("Facture F110001");
-		ligne3.setDebit(null);
-		ligne3.setCredit(new BigDecimal("52.74"));
+		vLibelle = "Facture F110001";
+		vDebit = null;
+		vCredit = new BigDecimal("52.74");
+		LigneEcritureComptable ligne3 = new LigneEcritureComptable(vCompteComptable, vLibelle, vDebit, vCredit);
 
 		listLigneEcritureAttendu = new ArrayList<LigneEcritureComptable>();
 		listLigneEcritureAttendu.add(ligne1);
@@ -378,8 +315,6 @@ public class ComptabiliteDaoImplTest {
 	 */
 	@Test
 	public void getListCompteComptable() throws SQLException {
-		creerListCompteComptableAttendu();
-
 		ComptabiliteDao vComptabiliteDaoImpl = ComptabiliteDaoImpl.getInstance();
 
 		List<CompteComptable> vListCompteComptable = vComptabiliteDaoImpl.getListCompteComptable();
@@ -391,7 +326,7 @@ public class ComptabiliteDaoImplTest {
 		for (CompteComptable compteComptableAttendu : listCompteComptableAttendu) {
 			boolean isContain = false;
 			for (CompteComptable compteComptable : vListCompteComptable) {
-				if (compteComptableAttendu.getNumero().intValue() == compteComptable.getNumero().intValue() && compteComptableAttendu.getLibelle().equals(compteComptable.getLibelle()))
+				if (ModelTestUtilities.isEqual(compteComptable, compteComptableAttendu))
 					isContain = true;
 			}
 			Assert.assertTrue("Test ComptabiliteDaoImpl.getListCompteComptable(), le CompteComptable suivant n'a pas été trouvé : numero :  " + compteComptableAttendu.getNumero()
@@ -407,8 +342,6 @@ public class ComptabiliteDaoImplTest {
 	 */
 	@Test
 	public void getListJournalComptable() throws SQLException {
-		creerListJournalComptableAttendu();
-
 		ComptabiliteDao vComptabiliteDaoImpl = ComptabiliteDaoImpl.getInstance();
 
 		List<JournalComptable> vListJournalComptable = vComptabiliteDaoImpl.getListJournalComptable();
@@ -420,7 +353,7 @@ public class ComptabiliteDaoImplTest {
 		for (JournalComptable vJournalComptableAttendu : listJournalComptableAttendu) {
 			boolean isContain = false;
 			for (JournalComptable vJournalComptable : vListJournalComptable) {
-				if (vJournalComptableAttendu.getCode().equals(vJournalComptable.getCode()) && vJournalComptableAttendu.getLibelle().equals(vJournalComptable.getLibelle())) {
+				if (ModelTestUtilities.isEqual(vJournalComptable, vJournalComptableAttendu)) {
 					isContain = true;
 				}
 			}
@@ -438,8 +371,6 @@ public class ComptabiliteDaoImplTest {
 	 */
 	@Test
 	public void getListEcritureComptable() throws SQLException {
-		creerListEcritureComptableAttendu();
-
 		ComptabiliteDao vComptabiliteDaoImpl = ComptabiliteDaoImpl.getInstance();
 
 		List<EcritureComptable> vListEcritureComptable = vComptabiliteDaoImpl.getListEcritureComptable();
@@ -447,29 +378,13 @@ public class ComptabiliteDaoImplTest {
 		// 1. vérification qu'il y a bien le bon nombre d'élément :
 		Assert.assertTrue("Test ComptabiliteDaoImpl.getListEcritureComptable() : erreur nb de résultat", vListEcritureComptable.size() == 5);
 
-		// 2. Vérification que tous les éléments attendus sont bien retournés :
-		for (EcritureComptable ecritureComptableAttendu : listEcritureComptableAttendu) {
-			boolean isContain = false;
-			for (EcritureComptable ecritureComptable : vListEcritureComptable) {
-				boolean vTest = ecritureComptable.getId() == ecritureComptableAttendu.getId();
-				vTest = ecritureComptableAttendu.getJournal().getCode().equals(ecritureComptable.getJournal().getCode());
-				vTest = vTest && ecritureComptableAttendu.getJournal().getLibelle().equals(ecritureComptable.getJournal().getLibelle());
-
-				vTest = vTest && ecritureComptableAttendu.getLibelle().equals(ecritureComptable.getLibelle());
-				vTest = vTest && ecritureComptableAttendu.getReference().equals(ecritureComptable.getReference());
-
-				Calendar vTestCalendarAttendu = Calendar.getInstance();
-				vTestCalendarAttendu.setTime(ecritureComptableAttendu.getDate());
-				Calendar vTestCalendar = Calendar.getInstance();
-				vTestCalendar.setTime(ecritureComptable.getDate());
-				vTest = vTest && vTestCalendarAttendu.get(Calendar.YEAR) == vTestCalendar.get(Calendar.YEAR);
-				vTest = vTest && vTestCalendarAttendu.get(Calendar.MONTH) == vTestCalendar.get(Calendar.MONTH);
-				vTest = vTest && vTestCalendarAttendu.get(Calendar.DAY_OF_MONTH) == vTestCalendar.get(Calendar.DAY_OF_MONTH);
-				if (vTest)
-					isContain = true;
-			}
-			Assert.assertTrue("Test ComptabiliteDaoImpl.getListEcritureComptable() : erreur EcritureComptable pour l'id : " + ecritureComptableAttendu.getId(), isContain);
+		// 2. Vérification que l'élément d'Id -1 est bien retourné :
+		boolean isContain = false;
+		for (EcritureComptable ecritureComptable : vListEcritureComptable) {
+			if (ModelTestUtilities.isEqual(ecritureComptable, ecritureComptableAttendu))
+				isContain = true;
 		}
+		Assert.assertTrue("Test ComptabiliteDaoImpl.getListEcritureComptable() : l'EcritureComptable d'Id -1 n'est pas retourné.", isContain);
 	}
 
 	/**
@@ -479,36 +394,18 @@ public class ComptabiliteDaoImplTest {
 	 */
 	@Test
 	public void getEcritureComptable() throws SQLException {
-		creerListEcritureComptableAttendu();
-
 		ComptabiliteDao vComptabiliteDaoImpl = ComptabiliteDaoImpl.getInstance();
 
 		// Utilisation de la méthode à tester
 		EcritureComptable vEcritureComptable = null;
-		EcritureComptable vEcritureComptableAttendu = listEcritureComptableAttendu.get(0);
 		try {
-			vEcritureComptable = vComptabiliteDaoImpl.getEcritureComptable(vEcritureComptableAttendu.getId());
+			vEcritureComptable = vComptabiliteDaoImpl.getEcritureComptable(ecritureComptableAttendu.getId());
 		} catch (NotFoundException e) {
 			Assert.fail("Test ComptabiliteDaoImpl.getEcritureComptable(Integer pId) : Element non trouvé");
 		}
 
 		// Test
-		boolean vTest = vEcritureComptableAttendu.getJournal().getCode().equals(vEcritureComptable.getJournal().getCode());
-
-		vTest = vTest && vEcritureComptableAttendu.getJournal().getLibelle().equals(vEcritureComptable.getJournal().getLibelle());
-
-		vTest = vTest && vEcritureComptableAttendu.getLibelle().equals(vEcritureComptable.getLibelle());
-		vTest = vTest && vEcritureComptableAttendu.getReference().equals(vEcritureComptable.getReference());
-
-		Calendar vTestCalendarAttendu = Calendar.getInstance();
-		vTestCalendarAttendu.setTime(vEcritureComptableAttendu.getDate());
-		Calendar vTestCalendar = Calendar.getInstance();
-		vTestCalendar.setTime(vEcritureComptable.getDate());
-		vTest = vTest && vTestCalendarAttendu.get(Calendar.YEAR) == vTestCalendar.get(Calendar.YEAR);
-		vTest = vTest && vTestCalendarAttendu.get(Calendar.MONTH) == vTestCalendar.get(Calendar.MONTH);
-		vTest = vTest && vTestCalendarAttendu.get(Calendar.DAY_OF_MONTH) == vTestCalendar.get(Calendar.DAY_OF_MONTH);
-
-		Assert.assertTrue("Test ComptabiliteDaoImpl.getEcritureComptable(Integer pId) : L'objet retourné ne correpond pas", vTest);
+		Assert.assertTrue("Test ComptabiliteDaoImpl.getEcritureComptable(Integer pId) : L'objet retourné ne correpond pas", ModelTestUtilities.isEqual(ecritureComptableAttendu, vEcritureComptable));
 	}
 
 	/**
@@ -518,37 +415,34 @@ public class ComptabiliteDaoImplTest {
 	 */
 	@Test
 	public void getEcritureComptableByRef() throws SQLException {
-		creerListEcritureComptableAttendu();
-
 		ComptabiliteDao vComptabiliteDaoImpl = ComptabiliteDaoImpl.getInstance();
-
-		EcritureComptable vEcritureComptableAttendu = listEcritureComptableAttendu.get(0);
 
 		// Utilisation de la méthode à tester
 		EcritureComptable vEcritureComptable = null;
 		try {
-			vEcritureComptable = vComptabiliteDaoImpl.getEcritureComptableByRef(vEcritureComptableAttendu.getReference());
+			vEcritureComptable = vComptabiliteDaoImpl.getEcritureComptableByRef(ecritureComptableAttendu.getReference());
 		} catch (NotFoundException e) {
 			Assert.fail("Test ComptabiliteDaoImpl.getEcritureComptableByRef(String pReference) : Element non trouvé");
 		}
 
 		// Test
-		boolean vTest = vEcritureComptableAttendu.getJournal().getCode().equals(vEcritureComptable.getJournal().getCode());
+		Assert.assertTrue("Test ComptabiliteDaoImpl.getEcritureComptableByRef(String pReference) : L'objet retourné ne correpond pas", ModelTestUtilities.isEqual(ecritureComptableAttendu, vEcritureComptable));
+	}
 
-		vTest = vTest && vEcritureComptableAttendu.getJournal().getLibelle().equals(vEcritureComptable.getJournal().getLibelle());
+	/**
+	 * test de EcritureComptable getEcritureComptableByRef(String pReference) avec une mauvaise référence
+	 * EmptyResultDataAccessException attendu
+	 * 
+	 * @throws SQLException
+	 * @throws NotFoundException
+	 */
+	@Test(expected = NotFoundException.class)
+	public void getEcritureComptableByRefMauvaiseRef() throws SQLException, NotFoundException {
+		ComptabiliteDao vComptabiliteDaoImpl = ComptabiliteDaoImpl.getInstance();
 
-		vTest = vTest && vEcritureComptableAttendu.getLibelle().equals(vEcritureComptable.getLibelle());
-		vTest = vTest && vEcritureComptableAttendu.getReference().equals(vEcritureComptable.getReference());
+		// Utilisation de la méthode à tester
+		vComptabiliteDaoImpl.getEcritureComptableByRef("Mauvaise Ref");
 
-		Calendar vTestCalendarAttendu = Calendar.getInstance();
-		vTestCalendarAttendu.setTime(vEcritureComptableAttendu.getDate());
-		Calendar vTestCalendar = Calendar.getInstance();
-		vTestCalendar.setTime(vEcritureComptable.getDate());
-		vTest = vTest && vTestCalendarAttendu.get(Calendar.YEAR) == vTestCalendar.get(Calendar.YEAR);
-		vTest = vTest && vTestCalendarAttendu.get(Calendar.MONTH) == vTestCalendar.get(Calendar.MONTH);
-		vTest = vTest && vTestCalendarAttendu.get(Calendar.DAY_OF_MONTH) == vTestCalendar.get(Calendar.DAY_OF_MONTH);
-
-		Assert.assertTrue("Test ComptabiliteDaoImpl.getEcritureComptableByRef(String pReference) : L'objet retourné ne correpond pas", vTest);
 	}
 
 	/**
@@ -560,8 +454,6 @@ public class ComptabiliteDaoImplTest {
 	@Test
 	public void loadListLigneEcriture() throws SQLException {
 		ComptabiliteDao vComptabiliteDaoImpl = ComptabiliteDaoImpl.getInstance();
-
-		creerListLigneEcritureAttendu();
 
 		// Utilisation de la méthode à tester
 		EcritureComptable vEcritureComptable = null;
@@ -581,30 +473,7 @@ public class ComptabiliteDaoImplTest {
 		for (LigneEcritureComptable ligneEcritureComptableAttendu : listLigneEcritureAttendu) {
 			boolean isContain = false;
 			for (LigneEcritureComptable ligneEcritureComptable : vListLigneEcriture) {
-				boolean test;
-
-				if (ligneEcritureComptableAttendu.getCredit() == null) {
-					test = ligneEcritureComptable.getCredit() == null;
-				} else {
-					if (ligneEcritureComptable.getCredit() == null)
-						test = false;
-					else
-						test = ligneEcritureComptableAttendu.getCredit().compareTo(ligneEcritureComptable.getCredit()) == 0;
-				}
-
-				if (ligneEcritureComptableAttendu.getDebit() == null) {
-					test = test && ligneEcritureComptable.getDebit() == null;
-				} else {
-					if (ligneEcritureComptable.getDebit() == null)
-						test = false;
-					else
-						test = test && ligneEcritureComptableAttendu.getDebit().compareTo(ligneEcritureComptable.getDebit()) == 0;
-				}
-
-				test = test && ligneEcritureComptableAttendu.getLibelle().equals(ligneEcritureComptable.getLibelle())
-						&& ligneEcritureComptableAttendu.getCompteComptable().getNumero().intValue() == ligneEcritureComptable.getCompteComptable().getNumero().intValue()
-						&& ligneEcritureComptableAttendu.getCompteComptable().getLibelle().equals(ligneEcritureComptable.getCompteComptable().getLibelle());
-				if (test)
+				if (ModelTestUtilities.isEqual(ligneEcritureComptableAttendu, ligneEcritureComptable))
 					isContain = true;
 			}
 			Assert.assertTrue("Test ComptabiliteDaoImpl.loadListLigneEcriture(EcritureComptable pEcritureComptable) : erreur dans les éléments retournés", isContain);
@@ -621,6 +490,7 @@ public class ComptabiliteDaoImplTest {
 	public void insertEcritureComptable() throws SQLException {
 		ComptabiliteDao vComptabiliteDaoImpl = ComptabiliteDaoImpl.getInstance();
 
+		// Créationde l'écritureComptable
 		EcritureComptable vEcritureComptableAttendu = new EcritureComptable();
 
 		JournalComptable vJournalComptable = vComptabiliteDaoImpl.getListJournalComptable().get(0);
@@ -635,33 +505,38 @@ public class ComptabiliteDaoImplTest {
 
 		// Création des LigneEcritureComptable
 		List<CompteComptable> vListCompteComptable = vComptabiliteDaoImpl.getListCompteComptable();
-		LigneEcritureComptable ligne1 = new LigneEcritureComptable();
+		// Ligne1
+		CompteComptable vCompteComptable = null;
 		for (CompteComptable compteComptable : vListCompteComptable) {
 			if (compteComptable.getNumero() == 706)
-				ligne1.setCompteComptable(compteComptable);
+				vCompteComptable = compteComptable;
 		}
-		ligne1.setLibelle("ligne de test num 1");
-		ligne1.setDebit(new BigDecimal("1869.25"));
-		ligne1.setCredit(null);
+		String vLibelle = "ligne de test num 1";
+		BigDecimal vDebit = new BigDecimal("1869.25");
+		BigDecimal vCredit = null;
+		LigneEcritureComptable ligne1 = new LigneEcritureComptable(vCompteComptable, vLibelle, vDebit, vCredit);
 
-		LigneEcritureComptable ligne2 = new LigneEcritureComptable();
+		// Ligne2
 		for (CompteComptable compteComptable : vListCompteComptable) {
 			if (compteComptable.getNumero() == 401)
-				ligne2.setCompteComptable(compteComptable);
+				vCompteComptable = compteComptable;
 		}
-		ligne2.setLibelle("ligne de test num 2");
-		ligne2.setDebit(new BigDecimal("5468.54"));
-		ligne2.setCredit(null);
+		vLibelle = "ligne de test num 2";
+		vDebit = new BigDecimal("5468.54");
+		vCredit = null;
+		LigneEcritureComptable ligne2 = new LigneEcritureComptable(vCompteComptable, vLibelle, vDebit, vCredit);
 
-		LigneEcritureComptable ligne3 = new LigneEcritureComptable();
+		// Ligne3
 		for (CompteComptable compteComptable : vListCompteComptable) {
 			if (compteComptable.getNumero() == 512)
-				ligne3.setCompteComptable(compteComptable);
+				vCompteComptable = compteComptable;
 		}
-		ligne3.setLibelle("ligne de test num 3");
-		ligne3.setDebit(null);
-		ligne3.setCredit(new BigDecimal("5742.26"));
+		vLibelle = "ligne de test num 3";
+		vDebit = null;
+		vCredit = new BigDecimal("5742.26");
+		LigneEcritureComptable ligne3 = new LigneEcritureComptable(vCompteComptable, vLibelle, vDebit, vCredit);
 
+		// Ajout des LigneEcritureComptable
 		ArrayList<LigneEcritureComptable> vListLigneEcritureAttendu = new ArrayList<LigneEcritureComptable>();
 		vListLigneEcritureAttendu.add(ligne1);
 		vListLigneEcritureAttendu.add(ligne2);
@@ -683,60 +558,9 @@ public class ComptabiliteDaoImplTest {
 		if (vEcritureComptable == null) {
 			Assert.fail("Test ComptabiliteDaoImpl.insertEcritureComptable(EcritureComptable pEcritureComptable) : retourne null");
 		}
-		boolean test = vEcritureComptableAttendu.getId() == vEcritureComptable.getId()
-				&& vEcritureComptableAttendu.getLibelle().equals(vEcritureComptable.getLibelle())
-				&& vEcritureComptableAttendu.getReference().equals(vEcritureComptable.getReference())
-				&& vEcritureComptableAttendu.getJournal().getCode().equals(vEcritureComptable.getJournal().getCode())
-				&& vEcritureComptableAttendu.getJournal().getLibelle().equals(vEcritureComptable.getJournal().getLibelle());
 
-		Calendar vTestCalendarAttendu = Calendar.getInstance();
-		vTestCalendarAttendu.setTime(vEcritureComptableAttendu.getDate());
-		Calendar vTestCalendar = Calendar.getInstance();
-		vTestCalendar.setTime(vEcritureComptable.getDate());
-		test = test && vTestCalendarAttendu.get(Calendar.YEAR) == vTestCalendar.get(Calendar.YEAR);
-		test = test && vTestCalendarAttendu.get(Calendar.MONTH) == vTestCalendar.get(Calendar.MONTH);
-		test = test && vTestCalendarAttendu.get(Calendar.DAY_OF_MONTH) == vTestCalendar.get(Calendar.DAY_OF_MONTH);
-
-		Assert.assertTrue("Test ComptabiliteDaoImpl.insertEcritureComptable(EcritureComptable pEcritureComptable) : l'objet retourné est différent", test);
-
-		// vérification de la list de LigneEcriture
-		vComptabiliteDaoImpl.loadListLigneEcriture(vEcritureComptable);
-		List<LigneEcritureComptable> vListLigneEcriture = vEcritureComptable.getListLigneEcriture();
-
-		Assert.assertTrue("Test ComptabiliteDaoImpl.insertEcritureComptable(EcritureComptable pEcritureComptable) : la list de Ligne Ecriture est incorrecte",
-				vListLigneEcriture.size() == vListLigneEcritureAttendu.size());
-
-		for (LigneEcritureComptable ligneEcritureComptableAttendu : vListLigneEcritureAttendu) {
-			boolean isContain = false;
-			for (LigneEcritureComptable ligneEcritureComptable : vListLigneEcriture) {
-				boolean test2;
-
-				if (ligneEcritureComptableAttendu.getCredit() == null) {
-					test2 = ligneEcritureComptable.getCredit() == null;
-				} else {
-					if (ligneEcritureComptable.getCredit() == null)
-						test2 = false;
-					else
-						test2 = ligneEcritureComptableAttendu.getCredit().compareTo(ligneEcritureComptable.getCredit()) == 0;
-				}
-
-				if (ligneEcritureComptableAttendu.getDebit() == null) {
-					test2 = test2 && ligneEcritureComptable.getDebit() == null;
-				} else {
-					if (ligneEcritureComptable.getDebit() == null)
-						test2 = false;
-					else
-						test2 = test2 && ligneEcritureComptableAttendu.getDebit().compareTo(ligneEcritureComptable.getDebit()) == 0;
-				}
-
-				test2 = test2 && ligneEcritureComptableAttendu.getLibelle().equals(ligneEcritureComptable.getLibelle())
-						&& ligneEcritureComptableAttendu.getCompteComptable().getNumero().intValue() == ligneEcritureComptable.getCompteComptable().getNumero().intValue()
-						&& ligneEcritureComptableAttendu.getCompteComptable().getLibelle().equals(ligneEcritureComptable.getCompteComptable().getLibelle());
-				if (test2)
-					isContain = true;
-			}
-			Assert.assertTrue("Test ComptabiliteDaoImpl.loadListLigneEcriture(EcritureComptable pEcritureComptable) : erreur dans les éléments retournés", isContain);
-		}
+		Assert.assertTrue("Test ComptabiliteDaoImpl.loadListLigneEcriture(EcritureComptable pEcritureComptable) : l'objet retourné est différent",
+				ModelTestUtilities.isEqual(vEcritureComptable, vEcritureComptableAttendu));
 
 	}
 
@@ -771,7 +595,7 @@ public class ComptabiliteDaoImplTest {
 		// Appel de la méthode à tester
 		vComptabiliteDaoImpl.updateEcritureComptable(vEcritureComptableAttendu);
 
-		// test
+		// Récupération de l'EcritureComptable après update
 		EcritureComptable vEcritureComptable = null;
 		try {
 			vEcritureComptable = vComptabiliteDaoImpl.getEcritureComptable(vEcritureComptableAttendu.getId());
@@ -780,64 +604,7 @@ public class ComptabiliteDaoImplTest {
 		}
 
 		// Test
-		boolean vTest = vEcritureComptableAttendu.getJournal().getCode().equals(vEcritureComptable.getJournal().getCode());
-
-		vTest = vTest && vEcritureComptableAttendu.getJournal().getLibelle().equals(vEcritureComptable.getJournal().getLibelle());
-
-		vTest = vTest && vEcritureComptableAttendu.getLibelle().equals(vEcritureComptable.getLibelle());
-		vTest = vTest && vEcritureComptableAttendu.getReference().equals(vEcritureComptable.getReference());
-
-		Calendar vTestCalendarAttendu = Calendar.getInstance();
-		vTestCalendarAttendu.setTime(vEcritureComptableAttendu.getDate());
-		Calendar vTestCalendar = Calendar.getInstance();
-		vTestCalendar.setTime(vEcritureComptable.getDate());
-		vTest = vTest && vTestCalendarAttendu.get(Calendar.YEAR) == vTestCalendar.get(Calendar.YEAR);
-		vTest = vTest && vTestCalendarAttendu.get(Calendar.MONTH) == vTestCalendar.get(Calendar.MONTH);
-		vTest = vTest && vTestCalendarAttendu.get(Calendar.DAY_OF_MONTH) == vTestCalendar.get(Calendar.DAY_OF_MONTH);
-
-		Assert.assertTrue("Test ComptabiliteDaoImpl.getEcritureComptable(Integer pId) : L'objet retourné ne correpond pas", vTest);
-
-		// Test de la list de LigneEcritureComptable
-		List<LigneEcritureComptable> vListLigneEcriture = vEcritureComptable.getListLigneEcriture();
-		List<LigneEcritureComptable> vListLigneEcritureAttendu = vEcritureComptableAttendu.getListLigneEcriture();
-
-		// 1. vérification qu'il y a bien le bon nombre d'élément :
-		Assert.assertTrue("Test ComptabiliteDaoImpl.loadListLigneEcriture(EcritureComptable pEcritureComptable) : erreur nb de résultat",
-				vListLigneEcriture.size() == vListLigneEcritureAttendu.size());
-
-		// 2. Vérification que tous les éléments attendus sont bien retournés :
-		for (LigneEcritureComptable ligneEcritureComptableAttendu : vListLigneEcritureAttendu) {
-			boolean isContain = false;
-			for (LigneEcritureComptable ligneEcritureComptable : vListLigneEcriture) {
-				boolean test;
-
-				if (ligneEcritureComptableAttendu.getCredit() == null) {
-					test = ligneEcritureComptable.getCredit() == null;
-				} else {
-					if (ligneEcritureComptable.getCredit() == null)
-						test = false;
-					else
-						test = ligneEcritureComptableAttendu.getCredit().compareTo(ligneEcritureComptable.getCredit()) == 0;
-				}
-
-				if (ligneEcritureComptableAttendu.getDebit() == null) {
-					test = test && ligneEcritureComptable.getDebit() == null;
-				} else {
-					if (ligneEcritureComptable.getDebit() == null)
-						test = false;
-					else
-						test = test && ligneEcritureComptableAttendu.getDebit().compareTo(ligneEcritureComptable.getDebit()) == 0;
-				}
-
-				test = test && ligneEcritureComptableAttendu.getLibelle().equals(ligneEcritureComptable.getLibelle())
-						&& ligneEcritureComptableAttendu.getCompteComptable().getNumero().intValue() == ligneEcritureComptable.getCompteComptable().getNumero().intValue()
-						&& ligneEcritureComptableAttendu.getCompteComptable().getLibelle().equals(ligneEcritureComptable.getCompteComptable().getLibelle());
-				if (test)
-					isContain = true;
-			}
-			Assert.assertTrue("Test ComptabiliteDaoImpl.loadListLigneEcriture(EcritureComptable pEcritureComptable) : erreur dans les éléments retournés", isContain);
-		}
-
+		Assert.assertTrue("Test ComptabiliteDaoImpl.getEcritureComptable(Integer pId) : L'objet retourné ne correpond pas", ModelTestUtilities.isEqual(vEcritureComptable, vEcritureComptableAttendu));
 	}
 
 	/**
@@ -863,64 +630,59 @@ public class ComptabiliteDaoImplTest {
 
 	}
 
-	
 	/**
 	 * test de SequenceEcritureComptable getDerniereSequenceEcritureComptable(String pCodeJournal, int pAnnee)
 	 */
 	@Test
 	public void getDerniereSequenceEcritureComptable() {
 		ComptabiliteDao vComptabiliteDaoImpl = ComptabiliteDaoImpl.getInstance();
-		
+
 		SequenceEcritureComptable vSequenceEcritureComptable = vComptabiliteDaoImpl.getDerniereSequenceEcritureComptable("AC", 2016);
-		
-		Assert.assertTrue("Test ComptabiliteDaoImpl.getDerniereSequenceEcritureComptable(String pCodeJournal, int pAnnee), la SequenceEcritureComptable retourné est incorrecte"
-				, vSequenceEcritureComptable.getAnnee().intValue()==2016 && vSequenceEcritureComptable.getDerniereValeur().intValue()==40);
-		
+
+		Assert.assertTrue("Test ComptabiliteDaoImpl.getDerniereSequenceEcritureComptable(String pCodeJournal, int pAnnee), la SequenceEcritureComptable retourné est incorrecte", vSequenceEcritureComptable.getAnnee().intValue() == 2016 && vSequenceEcritureComptable.getDerniereValeur().intValue() == 40);
+
 		vSequenceEcritureComptable = vComptabiliteDaoImpl.getDerniereSequenceEcritureComptable("AC", 2018);
-		
-		Assert.assertTrue("Test ComptabiliteDaoImpl.getDerniereSequenceEcritureComptable(String pCodeJournal, int pAnnee), la SequenceEcritureComptable retourné est incorrecte"
-				, vSequenceEcritureComptable==null);
+
+		Assert.assertTrue("Test ComptabiliteDaoImpl.getDerniereSequenceEcritureComptable(String pCodeJournal, int pAnnee), la SequenceEcritureComptable retourné est incorrecte", vSequenceEcritureComptable == null);
 	}
-	
+
 	/**
 	 * test de void insertSequenceEcritureComptable(String pCodeJournal, SequenceEcritureComptable pSequenceEcritureComptable)
 	 */
 	@Test
 	public void insertSequenceEcritureComptable() {
 		ComptabiliteDao vComptabiliteDaoImpl = ComptabiliteDaoImpl.getInstance();
-		
-		SequenceEcritureComptable vSequenceEcritureComptableAttendu = new SequenceEcritureComptable(2018,35);
-		
-		//Appel méthode à tester
+
+		SequenceEcritureComptable vSequenceEcritureComptableAttendu = new SequenceEcritureComptable(2018, 35);
+
+		// Appel méthode à tester
 		vComptabiliteDaoImpl.insertSequenceEcritureComptable("AC", vSequenceEcritureComptableAttendu);
-		
-		
+
 		SequenceEcritureComptable vSequenceEcritureComptable = vComptabiliteDaoImpl.getDerniereSequenceEcritureComptable("AC", 2018);
-		
+
 		Assert.assertTrue("Test ComptabiliteDaoImpl.insertSequenceEcritureComptable(String pCodeJournal, SequenceEcritureComptable pSequenceEcritureComptable),"
-				+ " la SequenceEcritureComptable n'a pas été enregistré en base de données"
-				, vSequenceEcritureComptable.getAnnee().intValue()==vSequenceEcritureComptableAttendu.getAnnee().intValue()
-					&& vSequenceEcritureComptable.getDerniereValeur().intValue()==vSequenceEcritureComptableAttendu.getDerniereValeur().intValue());
+				+ " la SequenceEcritureComptable n'a pas été enregistré en base de données",
+				vSequenceEcritureComptable.getAnnee().intValue() == vSequenceEcritureComptableAttendu.getAnnee().intValue()
+						&& vSequenceEcritureComptable.getDerniereValeur().intValue() == vSequenceEcritureComptableAttendu.getDerniereValeur().intValue());
 	}
-	
+
 	/**
 	 * test de void updateSequenceEcritureComptable(String pCodeJournal, SequenceEcritureComptable pSequenceEcritureComptable)
 	 */
 	@Test
 	public void updateSequenceEcritureComptable() {
 		ComptabiliteDao vComptabiliteDaoImpl = ComptabiliteDaoImpl.getInstance();
-		
-		SequenceEcritureComptable vSequenceEcritureComptableAttendu = new SequenceEcritureComptable(2016,69);
-		
-		//Appel méthode à tester
+
+		SequenceEcritureComptable vSequenceEcritureComptableAttendu = new SequenceEcritureComptable(2016, 69);
+
+		// Appel méthode à tester
 		vComptabiliteDaoImpl.updateSequenceEcritureComptable("AC", vSequenceEcritureComptableAttendu);
-		
-		
+
 		SequenceEcritureComptable vSequenceEcritureComptable = vComptabiliteDaoImpl.getDerniereSequenceEcritureComptable("AC", 2016);
-		
+
 		Assert.assertTrue("Test ComptabiliteDaoImpl.updateSequenceEcritureComptable(String pCodeJournal, SequenceEcritureComptable pSequenceEcritureComptable),"
-				+ " la SequenceEcritureComptable n'a pas été enregistré en base de données"
-				, vSequenceEcritureComptable.getAnnee().intValue()==vSequenceEcritureComptableAttendu.getAnnee().intValue()
-					&& vSequenceEcritureComptable.getDerniereValeur().intValue()==vSequenceEcritureComptableAttendu.getDerniereValeur().intValue());
+				+ " la SequenceEcritureComptable n'a pas été enregistré en base de données",
+				vSequenceEcritureComptable.getAnnee().intValue() == vSequenceEcritureComptableAttendu.getAnnee().intValue()
+						&& vSequenceEcritureComptable.getDerniereValeur().intValue() == vSequenceEcritureComptableAttendu.getDerniereValeur().intValue());
 	}
 }

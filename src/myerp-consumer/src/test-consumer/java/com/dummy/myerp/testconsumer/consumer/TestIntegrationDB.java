@@ -120,7 +120,7 @@ public class TestIntegrationDB extends ConsumerTestCase {
 
 		EcritureComptable vEcritureComptable = getComptabiliteDao().getEcritureComptable(-1);
 
-		// Test
+		// Test (sans test de la list de LigneEcritureComptable)
 		boolean vTest = vEcritureComptableAttendu.getJournal().getCode().equals(vEcritureComptable.getJournal().getCode());
 		vTest = vTest && vEcritureComptableAttendu.getJournal().getLibelle().equals(vEcritureComptable.getJournal().getLibelle());
 		vTest = vTest && vEcritureComptableAttendu.getLibelle().equals(vEcritureComptable.getLibelle());

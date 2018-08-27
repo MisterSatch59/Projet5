@@ -23,22 +23,6 @@ public class CompteComptable {
 	// ==================== Constructeurs ====================
 	/**
 	 * Instantiates a new Compte comptable.
-	 */
-	public CompteComptable() {
-	}
-
-	/**
-	 * Instantiates a new Compte comptable.
-	 *
-	 * @param pNumero
-	 *            the numero
-	 */
-	public CompteComptable(Integer pNumero) {
-		numero = pNumero;
-	}
-
-	/**
-	 * Instantiates a new Compte comptable.
 	 *
 	 * @param pNumero
 	 *            the numero

@@ -180,6 +180,7 @@ public class TestIntegrationCRUD extends BusinessTestCase {
 	 */
 	@Test
 	public void testUpdate() throws FunctionalException {
+		//Récupération de l'EcritureComptable d'ID -1
 		List<EcritureComptable> vListEcritureComptable = getBusinessProxy().getComptabiliteManager().getListEcritureComptable();
 		EcritureComptable vEcritureComptableAttendu = null;
 		for (EcritureComptable ecritureComptable : vListEcritureComptable) {
@@ -188,6 +189,7 @@ public class TestIntegrationCRUD extends BusinessTestCase {
 			}
 		}
 
+		//Modification de l'EcritureComptable
 		vEcritureComptableAttendu.setJournal(new JournalComptable("BQ", "Banque"));
 
 		Calendar vCalendar = Calendar.getInstance();
@@ -197,8 +199,10 @@ public class TestIntegrationCRUD extends BusinessTestCase {
 
 		getBusinessProxy().getComptabiliteManager().addReference(vEcritureComptableAttendu);
 
+		//Mise à joiur dans la base de données
 		getBusinessProxy().getComptabiliteManager().updateEcritureComptable(vEcritureComptableAttendu);
 
+		//Récupération à nouveau de l'EcritureComptable d'ID -1
 		vListEcritureComptable = getBusinessProxy().getComptabiliteManager().getListEcritureComptable();
 
 		EcritureComptable vEcritureComptableModifie = null;
@@ -208,21 +212,8 @@ public class TestIntegrationCRUD extends BusinessTestCase {
 			}
 		}
 
-		// Test
-		boolean vTest = vEcritureComptableAttendu.getJournal().getCode().equals(vEcritureComptableModifie.getJournal().getCode());
-		vTest = vTest && vEcritureComptableAttendu.getJournal().getLibelle().equals(vEcritureComptableModifie.getJournal().getLibelle());
-		vTest = vTest && vEcritureComptableAttendu.getLibelle().equals(vEcritureComptableModifie.getLibelle());
-		vTest = vTest && vEcritureComptableAttendu.getReference().equals(vEcritureComptableModifie.getReference());
-
-		Calendar vTestCalendarAttendu = Calendar.getInstance();
-		vTestCalendarAttendu.setTime(vEcritureComptableAttendu.getDate());
-		Calendar vTestCalendar = Calendar.getInstance();
-		vTestCalendar.setTime(vEcritureComptableModifie.getDate());
-		vTest = vTest && vTestCalendarAttendu.get(Calendar.YEAR) == vTestCalendar.get(Calendar.YEAR);
-		vTest = vTest && vTestCalendarAttendu.get(Calendar.MONTH) == vTestCalendar.get(Calendar.MONTH);
-		vTest = vTest && vTestCalendarAttendu.get(Calendar.DAY_OF_MONTH) == vTestCalendar.get(Calendar.DAY_OF_MONTH);
-
-		Assert.assertTrue("L'objet retourné ne correpond pas à l'objet modifié.", vTest);
+		// Test de la correpondance de l'EcritureComptable retourné avec l'EcritureComptable modifié
+		Assert.assertTrue("L'objet retourné ne correpond pas à l'objet modifié.", ModelTestUtilities.isEqual(vEcritureComptableModifie, vEcritureComptableAttendu));
 	}
 
 }

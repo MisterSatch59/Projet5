@@ -25,7 +25,7 @@ public class EcritureComptableTest {
 		BigDecimal vDebit = pDebit == null ? null : new BigDecimal(pDebit);
 		BigDecimal vCredit = pCredit == null ? null : new BigDecimal(pCredit);
 		String vLibelle = ObjectUtils.defaultIfNull(vDebit, BigDecimal.ZERO).subtract(ObjectUtils.defaultIfNull(vCredit, BigDecimal.ZERO)).toPlainString();
-		LigneEcritureComptable vRetour = new LigneEcritureComptable(new CompteComptable(pCompteComptableNumero), vLibelle, vDebit, vCredit);
+		LigneEcritureComptable vRetour = new LigneEcritureComptable(new CompteComptable(pCompteComptableNumero, "test"), vLibelle, vDebit, vCredit);
 		return vRetour;
 	}
 

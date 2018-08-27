@@ -41,7 +41,7 @@ public class AbstractDbConsumerTestSansConfig {
 
 	/**
 	 * Test de DataSource getDataSource(DataSourcesEnum pDataSourceId) sans config
-	 * préalalbe : UnsatisfiedLinkError attendu
+	 * préalable : UnsatisfiedLinkError attendu
 	 */
 	@Test(expected = UnsatisfiedLinkError.class)
 	public void getDataSourceNonConfig() {

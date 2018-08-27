@@ -99,22 +99,37 @@
 		<profile>
 			<id>test-consumer</id>
 		</profile>
-		
-		<!-- ===== Profile pour génré les rapport de couverture du code par les tests ===== -->
+
+		<!-- ===== Profile pour génré les rapport de couverture du code par les 
+			tests ===== -->
 		<profile>
 			<id>test-coverage</id>
-			<reporting>
+			<build>
 				<plugins>
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>cobertura-maven-plugin</artifactId>
 						<configuration>
+							<formats>
+								<format>xml</format>
+								<format>html</format>
+							</formats>
 							<aggregate>true</aggregate>
 						</configuration>
+						<executions>
+							<execution>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>cobertura</goal>
+								</goals>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
-			</reporting>
+			</build>
 		</profile>
+
+
 	</profiles>
 
 	<!-- =============================================================== -->
@@ -168,7 +183,7 @@
 				<artifactId>log4j-slf4j-impl</artifactId>
 				<version>${log4j.version}</version>
 			</dependency>
-		
+
 			<!-- ===== JSR 303 - Bean validation ===== -->
 			<!-- interface -->
 			<dependency>
@@ -182,7 +197,7 @@
 				<artifactId>hibernate-validator</artifactId>
 				<version>4.2.0.Final</version>
 			</dependency>
-		
+
 			<!-- ===== Apache Commons ===== -->
 			<dependency>
 				<groupId>org.apache.commons</groupId>
@@ -194,7 +209,7 @@
 				<artifactId>commons-lang3</artifactId>
 				<version>3.5</version>
 			</dependency>
-		
+
 			<!-- ===== Spring IOC ===== -->
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -214,7 +229,7 @@
 				<version>${spring.version}</version>
 				<scope>compile</scope>
 			</dependency>
-		
+
 			<!-- ===== Spring JDBC/Tx ===== -->
 			<!-- spring-tx : transaction, JCA, DAO -->
 			<dependency>
@@ -230,7 +245,7 @@
 				<version>${spring.version}</version>
 				<scope>compile</scope>
 			</dependency>
-		
+
 			<!-- ===== Database ===== -->
 			<!-- DB Connection pool -->
 			<dependency>
@@ -244,7 +259,7 @@
 				<artifactId>postgresql</artifactId>
 				<version>9.4.1212</version>
 			</dependency>
-		
+
 			<!-- ===== Test unitaires ===== -->
 			<dependency>
 				<groupId>junit</groupId>
@@ -264,8 +279,8 @@
 				<version>1.4.197</version>
 				<scope>test</scope>
 			</dependency>
-        </dependencies>
-    </dependencyManagement>
+		</dependencies>
+	</dependencyManagement>
 
 
 	<!-- =============================================================== -->
@@ -326,7 +341,8 @@
 					<version>3.0.0</version>
 				</plugin>
 
-				<!-- ===== Assemblage d'éléments (ex: génération du ZIP de déploiement des batches) ===== -->
+				<!-- ===== Assemblage d'éléments (ex: génération du ZIP de déploiement 
+					des batches) ===== -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-assembly-plugin</artifactId>
@@ -347,7 +363,8 @@
 					<version>2.20</version>
 				</plugin>
 
-				<!-- ===== Plugin de génération d'un site de documentation du projet ===== -->
+				<!-- ===== Plugin de génération d'un site de documentation du projet 
+					===== -->
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-site-plugin</artifactId>
@@ -389,7 +406,8 @@
 				</plugin>
 
 				<!-- ===== Aide au constructions particulières ===== -->
-				<!-- Ex : Ajout de répertoire de sources générées en tant que source d'un module -->
+				<!-- Ex : Ajout de répertoire de sources générées en tant que source 
+					d'un module -->
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>build-helper-maven-plugin</artifactId>
@@ -406,7 +424,8 @@
 	<reporting>
 		<excludeDefaults>true</excludeDefaults>
 		<plugins>
-			<!-- ===== Génération du site de documentation de base avec les "rapports génériques" ===== -->
+			<!-- ===== Génération du site de documentation de base avec les "rapports 
+				génériques" ===== -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-project-info-reports-plugin</artifactId>
@@ -484,7 +503,8 @@
 					</groups>
 				</configuration>
 				<reportSets>
-					<!-- reportSet par défaut, exécuté dans tous les modules (non-aggregate reports) -->
+					<!-- reportSet par défaut, exécuté dans tous les modules (non-aggregate 
+						reports) -->
 					<reportSet>
 						<reports>
 							<report>javadoc</report>

@@ -12,13 +12,13 @@ public class JournalComptableDaoCache {
 
 	// ==================== Attributs ====================
 	/** The List compte comptable. */
-	private static List<JournalComptable> listJournalComptable;			//******** Oltenos : passage en static pour n'avoir qu'un seul cache...
+	private static List<JournalComptable> listJournalComptable; // ******** Oltenos : passage en static pour n'avoir qu'un seul cache...
 
 	// ==================== Constructeurs ====================
 	/**
-	 * Instantiates a new Compte comptable dao cache.
+	 * privé pour évité l'instantiation de cette classe utilisable uniquement de manière static
 	 */
-	public JournalComptableDaoCache() {
+	private JournalComptableDaoCache() {
 	}
 
 	// ==================== Méthodes ====================
@@ -34,7 +34,6 @@ public class JournalComptableDaoCache {
 			listJournalComptable = ConsumerHelper.getDaoProxy().getComptabiliteDao().getListJournalComptable();
 		}
 
-		JournalComptable vRetour = JournalComptable.getByCode(listJournalComptable, pCode);
-		return vRetour;
+		return JournalComptable.getByCode(listJournalComptable, pCode);
 	}
 }

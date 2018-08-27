@@ -10,14 +10,13 @@ import org.apache.commons.lang3.time.DateUtils;
 /**
  * Classe utilitaire travaillant sur les ResultSet
  */
-public abstract class ResultSetHelper {
+public class ResultSetHelper {
 
-	// ==================== Constructeurs ====================
 	/**
-	 * Constructeur.
+	 * Constructeur privé pour évité l'instanciation de cette classe utilitaire utilisable uniquement de manière static
 	 */
-	protected ResultSetHelper() {
-		super();
+	private ResultSetHelper() {
+
 	}
 
 	// ==================== Méthodes ====================
@@ -37,7 +36,7 @@ public abstract class ResultSetHelper {
 		Integer vRetour = null;
 		int vInt = pRS.getInt(pColName);
 		if (!pRS.wasNull()) {
-			vRetour = new Integer(vInt);
+			vRetour = vInt;
 		}
 		return vRetour;
 	}

@@ -28,11 +28,6 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	// ==================== Attributs ====================
 
 	// ==================== Constructeurs ====================
-	/**
-	 * Instantiates a new Comptabilite manager.
-	 */
-	public ComptabiliteManagerImpl() {
-	}
 
 	// ==================== Méthodes GET ====================
 	@Override

@@ -50,14 +50,14 @@ public class CompteComptableDaoCacheTest {
 	public void getByNumero() {
 		// création d'une liste de CompteComptable
 		List<CompteComptable> vList = new ArrayList<CompteComptable>();
-		vList.add(new CompteComptable(1));
-		CompteComptable vCompteComptable = new CompteComptable(16,"libelle");
+		vList.add(new CompteComptable(1, "test"));
+		CompteComptable vCompteComptable = new CompteComptable(16, "libelle");
 		vList.add(vCompteComptable);
-		CompteComptable vCompteComptable2 = new CompteComptable(19);
+		CompteComptable vCompteComptable2 = new CompteComptable(19, "test");
 		vList.add(vCompteComptable2);
-		vList.add(new CompteComptable(165));
-		vList.add(new CompteComptable(5034));
-		
+		vList.add(new CompteComptable(165, "test"));
+		vList.add(new CompteComptable(5034, "test"));
+
 		// définition de la list de CompteComptable retourné par le Mock de ComptabiliteDao
 		Mockito.when(comptabiliteDao.getListCompteComptable()).thenReturn(vList);
 

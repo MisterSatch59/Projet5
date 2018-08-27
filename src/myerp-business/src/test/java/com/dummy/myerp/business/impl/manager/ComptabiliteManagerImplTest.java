@@ -38,7 +38,6 @@ public class ComptabiliteManagerImplTest {
 	@Mock
 	private ComptabiliteDao comptabiliteDao;
 
-	
 	/**
 	 * Initialisation du context : config du Mock de daoProxy
 	 * 
@@ -51,7 +50,7 @@ public class ComptabiliteManagerImplTest {
 
 		Mockito.when(daoProxy.getComptabiliteDao()).thenReturn(comptabiliteDao);
 	}
-	
+
 	/**
 	 * Test de void addReference(EcritureComptable pEcritureComptable) avec une première référence dans l'année
 	 */
@@ -61,28 +60,28 @@ public class ComptabiliteManagerImplTest {
 		ecritureComptable.setJournal(new JournalComptable("AC", "Achat"));
 		ecritureComptable.setDate(new Date());
 		ecritureComptable.setLibelle("Libelle");
-		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1, "test"),
 				null, new BigDecimal(123),
 				null));
-		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2, "test"),
 				null, null,
 				new BigDecimal(123)));
-		
+
 		String referenceAttendu = "AC-2018/00001";
-		
-		Mockito.when(comptabiliteDao.getDerniereSequenceEcritureComptable("AC",2018)).thenReturn(null);
-		
-		//Appel de la méthode à tester
+
+		Mockito.when(comptabiliteDao.getDerniereSequenceEcritureComptable("AC", 2018)).thenReturn(null);
+
+		// Appel de la méthode à tester
 		manager.addReference(ecritureComptable);
-		
-		//Vérifie que la référence est correcte
+
+		// Vérifie que la référence est correcte
 		Assert.assertTrue("Test ComptabiliteManagerImpl.addReference(EcritureComptable pEcritureComptable) : La référence généré n'est pas correcte",
 				ecritureComptable.getReference().equals(referenceAttendu));
-		
-		//Vérife l'enregistrement en persistance
+
+		// Vérife l'enregistrement en persistance
 		Mockito.verify(comptabiliteDao).insertSequenceEcritureComptable(Matchers.eq("AC"), Matchers.any());
 	}
-	
+
 	/**
 	 * Test de void addReference(EcritureComptable pEcritureComptable)
 	 */
@@ -92,25 +91,25 @@ public class ComptabiliteManagerImplTest {
 		ecritureComptable2.setJournal(new JournalComptable("AC", "Achat"));
 		ecritureComptable2.setDate(new Date());
 		ecritureComptable2.setLibelle("Libelle");
-		ecritureComptable2.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+		ecritureComptable2.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1, "test"),
 				null, new BigDecimal(1234),
 				null));
-		ecritureComptable2.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+		ecritureComptable2.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2, "test"),
 				null, null,
 				new BigDecimal(1234)));
-		
+
 		String referenceAttendu2 = "AC-2018/00010";
-		
-		Mockito.when(comptabiliteDao.getDerniereSequenceEcritureComptable("AC",2018)).thenReturn(new SequenceEcritureComptable(2018, 9));
-		
-		//Appel de la méthode à tester
+
+		Mockito.when(comptabiliteDao.getDerniereSequenceEcritureComptable("AC", 2018)).thenReturn(new SequenceEcritureComptable(2018, 9));
+
+		// Appel de la méthode à tester
 		manager.addReference(ecritureComptable2);
-		
-		//Vérifie que la référence est correcte
+
+		// Vérifie que la référence est correcte
 		Assert.assertTrue("Test ComptabiliteManagerImpl.addReference(EcritureComptable pEcritureComptable) : La référence généré n'est pas correcte",
 				ecritureComptable2.getReference().equals(referenceAttendu2));
-		
-		//Vérife l'enregistrement en persistance
+
+		// Vérife l'enregistrement en persistance
 		Mockito.verify(comptabiliteDao).updateSequenceEcritureComptable(Matchers.eq("AC"), Matchers.any());
 	}
 
@@ -125,10 +124,10 @@ public class ComptabiliteManagerImplTest {
 		ecritureComptable.setJournal(new JournalComptable("AC", "Achat"));
 		ecritureComptable.setDate(new Date());
 		ecritureComptable.setLibelle("Libelle");
-		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1, "test"),
 				null, new BigDecimal(123),
 				null));
-		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2, "test"),
 				null, null,
 				new BigDecimal(123)));
 		ecritureComptable.setReference("AC-2018/00001");
@@ -160,10 +159,10 @@ public class ComptabiliteManagerImplTest {
 		vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
 		vEcritureComptable.setDate(new Date());
 		vEcritureComptable.setLibelle("Libelle");
-		vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+		vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1, "test"),
 				null, new BigDecimal(123),
 				null));
-		vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+		vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2, "test"),
 				null, null,
 				new BigDecimal(1234)));
 		manager.checkEcritureComptableUnit(vEcritureComptable);
@@ -181,15 +180,15 @@ public class ComptabiliteManagerImplTest {
 		vEcritureComptable.setJournal(new JournalComptable("AC", "Achat"));
 		vEcritureComptable.setDate(new Date());
 		vEcritureComptable.setLibelle("Libelle");
-		vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+		vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1, "test"),
 				null, new BigDecimal(123),
 				null));
-		vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+		vEcritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1, "test"),
 				null, new BigDecimal(123),
 				null));
 		manager.checkEcritureComptableUnit(vEcritureComptable);
 	}
-	
+
 	/**
 	 * Test de void checkEcritureComptable(EcritureComptable pEcritureComptable) avec vialation de la RG5
 	 * 
@@ -201,17 +200,17 @@ public class ComptabiliteManagerImplTest {
 		ecritureComptable.setJournal(new JournalComptable("AC", "Achat"));
 		ecritureComptable.setDate(new Date());
 		ecritureComptable.setLibelle("Libelle");
-		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1, "test"),
 				null, new BigDecimal(123),
 				null));
-		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2, "test"),
 				null, null,
 				new BigDecimal(123)));
 		ecritureComptable.setReference("AC-2017/00001");
 
 		manager.checkEcritureComptableUnit(ecritureComptable);
 	}
-	
+
 	/**
 	 * Test de void checkEcritureComptable(EcritureComptable pEcritureComptable) avec vialation de la RG7
 	 * 
@@ -223,10 +222,10 @@ public class ComptabiliteManagerImplTest {
 		ecritureComptable.setJournal(new JournalComptable("AC", "Achat"));
 		ecritureComptable.setDate(new Date());
 		ecritureComptable.setLibelle("Libelle");
-		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1, "test"),
 				null, new BigDecimal(123.456),
 				null));
-		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2, "test"),
 				null, null,
 				new BigDecimal(123.456)));
 
@@ -244,10 +243,10 @@ public class ComptabiliteManagerImplTest {
 		ecritureComptable.setJournal(new JournalComptable("AC", "Achat"));
 		ecritureComptable.setDate(new Date());
 		ecritureComptable.setLibelle("Libelle");
-		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1, "test"),
 				null, new BigDecimal(123),
 				null));
-		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+		ecritureComptable.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2, "test"),
 				null, null,
 				new BigDecimal(123)));
 
@@ -266,10 +265,10 @@ public class ComptabiliteManagerImplTest {
 		ecritureComptable1.setJournal(new JournalComptable("AC", "Achat"));
 		ecritureComptable1.setDate(new Date());
 		ecritureComptable1.setLibelle("Libelle");
-		ecritureComptable1.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+		ecritureComptable1.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1, "test"),
 				null, new BigDecimal(123),
 				null));
-		ecritureComptable1.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+		ecritureComptable1.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2, "test"),
 				null, null,
 				new BigDecimal(123)));
 		ecritureComptable1.setReference("AC-2018/00001");
@@ -278,10 +277,10 @@ public class ComptabiliteManagerImplTest {
 		ecritureComptable2.setJournal(new JournalComptable("VE", "Vente"));
 		ecritureComptable2.setDate(new Date());
 		ecritureComptable2.setLibelle("Libelle numero 2");
-		ecritureComptable2.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1),
+		ecritureComptable2.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(1, "test"),
 				null, new BigDecimal(1234),
 				null));
-		ecritureComptable2.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2),
+		ecritureComptable2.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(2, "test"),
 				null, null,
 				new BigDecimal(1234)));
 		ecritureComptable2.setReference("AC-2018/00001");

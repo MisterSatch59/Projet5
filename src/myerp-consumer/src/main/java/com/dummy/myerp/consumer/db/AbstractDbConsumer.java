@@ -18,11 +18,17 @@ import com.dummy.myerp.technical.exception.TechnicalException;
 public abstract class AbstractDbConsumer {
 
 	// ==================== Attributs Static ====================
-	/** Logger Log4j pour la classe */
+	/** Logger Log4j pour la classe **/
 	private static final Logger LOGGER = LogManager.getLogger(AbstractDbConsumer.class);
 
-	/** Map des DataSources */
+	/** Map des DataSources **/
 	private static Map<DataSourcesEnum, DataSource> mapDataSource;
+
+	/** Message d'erreur d'initalisation des DataSources **/
+	private static String errorInitDatasources = "Les DataSource n'ont pas été initialisées !";
+
+	/** Message d'erreur d'initalisation d'une DataSource **/
+	private static String errorInitOneDatasource = "La DataSource suivante n'a pas été initialisée : ";
 
 	// ==================== Constructeurs ====================
 
@@ -52,13 +58,13 @@ public abstract class AbstractDbConsumer {
 	 * @return SimpleJdbcTemplate
 	 */
 	protected DataSource getDataSource(DataSourcesEnum pDataSourceId) {
-		if(mapDataSource==null) {														//******** Correction Oltenos : ajout du cas où les dataSource n'ont pas été initialisé
-			LOGGER.error("Les DataSource n'ont pas été initialisées !");
-            throw new UnsatisfiedLinkError("Les DataSource n'ont pas été initialisées !");
+		if (mapDataSource == null) { // ******** Correction Oltenos : ajout du cas où les dataSource n'ont pas été initialisé
+			LOGGER.error(errorInitDatasources);
+			throw new UnsatisfiedLinkError(errorInitDatasources);
 		}
 		DataSource vRetour = mapDataSource.get(pDataSourceId);
 		if (vRetour == null) {
-			throw new UnsatisfiedLinkError("La DataSource suivante n'a pas été initialisée : " + pDataSourceId);
+			throw new UnsatisfiedLinkError(errorInitOneDatasource + pDataSourceId);
 		}
 		return vRetour;
 	}
@@ -73,11 +79,11 @@ public abstract class AbstractDbConsumer {
 	 *             -
 	 */
 	public static void configure(Map<DataSourcesEnum, DataSource> pMapDataSource) throws TechnicalException {
-		if(pMapDataSource==null || pMapDataSource.size()==0) {														//******** Correction Oltenos : ajout du cas pMapDataSource null ou vide
-    		LOGGER.error("Les DataSource n'ont pas été initialisées !");
-            throw new TechnicalException("Les DataSource n'ont pas été initialisées !");
-    	}
-		
+		if (pMapDataSource == null || pMapDataSource.size() == 0) { // ******** Correction Oltenos : ajout du cas pMapDataSource null ou vide
+			LOGGER.error(errorInitDatasources);
+			throw new TechnicalException(errorInitDatasources);
+		}
+
 		// On pilote l'ajout avec l'Enum et on ne rajoute pas tout à l'aveuglette...
 		// ( pas de AbstractDbDao.mapDataSource.putAll(...) )
 		Map<DataSourcesEnum, DataSource> vMapDataSource = new HashMap<>(DataSourcesEnum.values().length);
@@ -85,15 +91,10 @@ public abstract class AbstractDbConsumer {
 		for (DataSourcesEnum vDataSourceId : vDataSourceIds) {
 			DataSource vDataSource = pMapDataSource.get(vDataSourceId);
 			// On test si la DataSource est configurée
-			// (NB : elle est considérée comme configurée si elle est dans pMapDataSource mais à null) 				//******** Correction Oltenos : pMapDataSource ne doit pas être null
+			// (NB : elle est considérée comme configurée si elle est dans pMapDataSource mais à null) //******** Correction Oltenos : pMapDataSource ne doit pas être null
 			if (vDataSource == null) {
-				if (!pMapDataSource.containsKey(vDataSourceId)) {
-					LOGGER.error("La DataSource " + vDataSourceId + " n'a pas été initialisée !");
-					throw new TechnicalException("La DataSource " + vDataSourceId + " n'a pas été initialisée !");	// ******** Correctioin Oltenos : ajout Exception
-				} else {																							// ******** Correction Oltenos : else ajouté pour le cas où la clé existe
-					LOGGER.error("La DataSource " + vDataSourceId + " a mal été initialisée (DataSource null) !"); 	// 			mais la DataSource est null (donc mal configurée)
-					throw new TechnicalException("La DataSource " + vDataSourceId + " a mal été initialisée (DataSource null) !");
-				}
+				LOGGER.error(errorInitOneDatasource + vDataSourceId);
+				throw new TechnicalException(errorInitOneDatasource + vDataSourceId);		// ******** Correction Oltenos : ajout Exception
 			} else {
 				vMapDataSource.put(vDataSourceId, vDataSource);
 			}

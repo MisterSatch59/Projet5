@@ -13,10 +13,10 @@ public class CompteComptableRM implements RowMapper<CompteComptable> {
 
 	@Override
 	public CompteComptable mapRow(ResultSet pRS, int pRowNum) throws SQLException {
-		CompteComptable vBean = new CompteComptable();
-		vBean.setNumero(pRS.getInt("numero"));
-		vBean.setLibelle(pRS.getString("libelle"));
 
-		return vBean;
+		int vNumero = pRS.getInt("numero");
+		String vLibelle = pRS.getString("libelle");
+
+		return new CompteComptable(vNumero, vLibelle);
 	}
 }

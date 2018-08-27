@@ -23,7 +23,7 @@ public class EcritureComptable {
 	@NotNull
 	private JournalComptable journal;
 	/** The Reference. */
-	@Pattern(regexp = "\\w{1,5}-\\d{4}/\\d{5}")		//***** Oltenos : Modification du REGEXP
+	@Pattern(regexp = "\\w{1,5}-\\d{4}/\\d{5}") // ***** Oltenos : Modification du REGEXP
 	private String reference;
 	/** The Date. */
 	@NotNull
@@ -108,8 +108,8 @@ public class EcritureComptable {
 	public BigDecimal getTotalCredit() {
 		BigDecimal vRetour = BigDecimal.ZERO;
 		for (LigneEcritureComptable vLigneEcritureComptable : listLigneEcriture) {
-			if (vLigneEcritureComptable.getCredit() != null) {							//***** Correction Oltenos : getCredit() au lieu de getDebit()
-				vRetour = vRetour.add(vLigneEcritureComptable.getCredit()); 			//***** Correction Oltenos : getCredit() au lieu de getDebit()
+			if (vLigneEcritureComptable.getCredit() != null) { // ***** Correction Oltenos : getCredit() au lieu de getDebit()
+				vRetour = vRetour.add(vLigneEcritureComptable.getCredit()); // ***** Correction Oltenos : getCredit() au lieu de getDebit()
 			}
 		}
 		return vRetour;
@@ -121,8 +121,7 @@ public class EcritureComptable {
 	 * @return boolean
 	 */
 	public boolean isEquilibree() {
-		boolean vRetour = (this.getTotalDebit().compareTo(getTotalCredit())==0);		//***** Correction Oltenos : utilisation de compareTo() au lieu de equals()
-		return vRetour;
+		return (this.getTotalDebit().compareTo(getTotalCredit()) == 0); // ***** Correction Oltenos : utilisation de compareTo() au lieu de equals()
 	}
 
 	// ==================== Méthodes ====================

@@ -16,13 +16,23 @@ import com.dummy.myerp.consumer.dao.contrat.DaoProxy;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class BusinessProxyImplTest {
-	
+
 	@Mock
 	private DaoProxy daoProxy;
-	
+
 	@Mock
 	private TransactionManager transactionManager;
-	
+
+	/**
+	 * Test de static BusinessProxyImpl static DaoProxyImpl getInstance() sans configuration
+	 * UnsatisfiedLinkError attendu
+	 */
+	@Test(expected = UnsatisfiedLinkError.class)
+	public void getInstanceSansConfig() {
+		BusinessProxyImpl.getInstance(null, transactionManager);
+		BusinessProxyImpl.getInstance();
+	}
+
 	/**
 	 * Test de static BusinessProxyImpl getInstance(DaoProxy pDaoProxy, TransactionManager pTransactionManager) et static DaoProxyImpl getInstance()
 	 */
